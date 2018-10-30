@@ -28,7 +28,7 @@ public class ApiServicesImplementation implements ApiServices{
     }
 
     @Override
-    @Scheduled(cron = "0 0 12 * * *")
+    @Scheduled(cron = "0 0 */1 * * *")
     public void insertGames() {
         System.out.println("insert All");
         ExternalApiFacade facade = new ExternalApiFacade();
