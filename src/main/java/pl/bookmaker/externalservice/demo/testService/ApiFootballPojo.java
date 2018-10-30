@@ -15,6 +15,7 @@ import pl.bookmaker.externalservice.demo.models.entity.Team;
 import pl.bookmaker.externalservice.demo.models.externalApi.Matches;
 import pl.bookmaker.externalservice.demo.models.externalApi.MatchesExternalApi;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -46,27 +47,25 @@ public class ApiFootballPojo {
         return listOfMatchesExternalApi;
     }
 
-    private List<Game> createGamePojo(List<MatchesExternalApi> matchesExternalApi) { ////TO JEST DO POPRAWIENIA ŻEBY BYŁO ŁADNE
+    private List<Game> crateListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) { ////TO JEST DO POPRAWIENIA ŻEBY BYŁO ŁADNE
         List<Game> listOfGames = new ArrayList<>();
-
-        matchesExternalApi.forEach(matchesExternal -> {
-            Competition competition = new Competition(
-                    matchesExternal.getCompetition().getId(),
-                    matchesExternal.getCompetition().getName());
-            List<Matches> listOfMatches = matchesExternal.getMatches();
-
-            for (Matches p : listOfMatches) {
-                listOfGames.add(
-                        new Game(p.getId(),
-                                competition,
+            matchesExternalApi.forEach(externalMatches -> {
+                externalMatches.getMatches().forEach(p -> {
+                        listOfGames.add(new Game(
+                                p.getId(),
+                                new Competition(externalMatches.getCompetition().getId(),
+                                                externalMatches.getCompetition().getName()),
                                 DateValidation.getDateFromJson(p.getUtcDate()),
                                 DateValidation.getTimeFromJson(p.getUtcDate()),
                                 p.getStatus(),
                                 new Team(p.getHomeTeam().getId(), p.getHomeTeam().getName()),
                                 new Team(p.getAwayTeam().getId(), p.getAwayTeam().getName()),
-                                p.getScore().getWinner()));
+                                p.getScore().getWinner())
+                        );
+                }
+                );
             }
-        });
+            );
+        return listOfGames;
     }
-
 }
