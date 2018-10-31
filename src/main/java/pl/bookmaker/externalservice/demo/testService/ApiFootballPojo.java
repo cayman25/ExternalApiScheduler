@@ -1,7 +1,6 @@
 package pl.bookmaker.externalservice.demo.testService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,14 +11,10 @@ import pl.bookmaker.externalservice.demo.apiServices.DateValidation;
 import pl.bookmaker.externalservice.demo.models.entity.Competition;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.models.entity.Team;
-import pl.bookmaker.externalservice.demo.models.externalApi.Matches;
 import pl.bookmaker.externalservice.demo.models.externalApi.MatchesExternalApi;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ApiFootballPojo {
 
@@ -47,25 +42,29 @@ public class ApiFootballPojo {
         return listOfMatchesExternalApi;
     }
 
-    private List<Game> crateListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) { ////TO JEST DO POPRAWIENIA ŻEBY BYŁO ŁADNE
+    private List<Game> crateListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) {
         List<Game> listOfGames = new ArrayList<>();
-            matchesExternalApi.forEach(externalMatches -> {
-                externalMatches.getMatches().forEach(p -> {
-                        listOfGames.add(new Game(
-                                p.getId(),
-                                new Competition(externalMatches.getCompetition().getId(),
-                                                externalMatches.getCompetition().getName()),
-                                DateValidation.getDateFromJson(p.getUtcDate()),
-                                DateValidation.getTimeFromJson(p.getUtcDate()),
-                                p.getStatus(),
-                                new Team(p.getHomeTeam().getId(), p.getHomeTeam().getName()),
-                                new Team(p.getAwayTeam().getId(), p.getAwayTeam().getName()),
-                                p.getScore().getWinner())
-                        );
+        matchesExternalApi.forEach(externalMatches -> {
+                    externalMatches.getMatches().forEach(p -> {
+                                listOfGames.add(new Game(
+                                        p.getId(),
+                                        new Competition(externalMatches.getCompetition().getId(),
+                                                        externalMatches.getCompetition().getName()),
+                                        DateValidation.getDateFromJson(p.getUtcDate()),
+                                        DateValidation.getTimeFromJson(p.getUtcDate()),
+                                        p.getStatus(),
+                                        new Team(p.getHomeTeam().getId(), p.getHomeTeam().getName()),
+                                        new Team(p.getAwayTeam().getId(), p.getAwayTeam().getName()),
+                                        p.getScore().getWinner())
+                                );
+                            }
+                    );
                 }
-                );
-            }
-            );
+        );
         return listOfGames;
     }
+
+
+
+
 }
