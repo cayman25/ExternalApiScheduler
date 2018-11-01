@@ -1,43 +1,25 @@
-package pl.bookmaker.externalservice.demo.ExternalApi;
+package pl.bookmaker.externalservice.demo.testService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Bean;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.repository.GameRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-@Service
-public class ApiFootballService{
+public class ApiFootballService {
+
+    private final GameRepository gameRepository;
 
     @Autowired
-    private GameRepository gameRepository;
-
-/*
-    @Autowired
-    public ApiFootballService(GameRepository gameRepository) {
-        this.gameRepository = gameRepository;
-    }
-*/
-
-    @Scheduled(cron = "*/30 * * * * *")
-    public void setActualGameEntityInCollection(){
-        final ApiFootballFacade facade = new ApiFootballFacade();
-        facade.setActualGameEntityInCollection();
+    private ApiFootballService(GameRepository gameRepository){
+        this.gameRepository=gameRepository;
     }
 
-    private void saveFinishedGame(){
-        ApiFootballFacade facade = new ApiFootballFacade();
-        List <Game> finished = facade.getFinishedGames();
-        System.out.println(finished.size());
-       // gameRepository.saveAll(facade.getFinishedGames());
+    public void updateFinishedGames(List<Game> list){
+        gameRepository.saveAll(list);
     }
 
-    public void update() {
-        System.out.println("New Finished Game");
-        saveFinishedGame();
-    }
+
+
 }
