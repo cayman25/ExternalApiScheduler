@@ -1,7 +1,7 @@
-package pl.bookmaker.externalservice.demo.testService;
+package pl.bookmaker.externalservice.demo.ExternalApi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,21 +12,16 @@ import pl.bookmaker.externalservice.demo.apiServices.DateValidation;
 import pl.bookmaker.externalservice.demo.models.entity.Competition;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.models.entity.Team;
-import pl.bookmaker.externalservice.demo.models.externalApi.Matches;
 import pl.bookmaker.externalservice.demo.models.externalApi.MatchesExternalApi;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ApiFootballPojo {
 
     private List<MatchesExternalApi> createMatchesExternalApi(List<String> urls) {
-
         List<MatchesExternalApi> listOfMatchesExternalApi = new ArrayList<>();
-
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Auth-Token", "bf5c0f84e2214a43978af5da8e98d878");
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
@@ -47,7 +42,7 @@ public class ApiFootballPojo {
         return listOfMatchesExternalApi;
     }
 
-    private List<Game> crateListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) { ////TO JEST DO POPRAWIENIA ŻEBY BYŁO ŁADNE
+    private List<Game> createListOfGameEntityListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) { ////TO JEST DO POPRAWIENIA ŻEBY BYŁO ŁADNE
         List<Game> listOfGames = new ArrayList<>();
             matchesExternalApi.forEach(externalMatches -> {
                 externalMatches.getMatches().forEach(p -> {
@@ -67,5 +62,16 @@ public class ApiFootballPojo {
             }
             );
         return listOfGames;
+    }
+
+    private void setFinishedAndOtherGamesEntity(List<Game> games){
+        System.out.println(games.get(0).getStatusMatch());
+        ApiFootballGameCollection collection = new ApiFootballGameCollection();
+        collection.setFinishedGames(games.stream().filter(game -> game.getStatusMatch().equals("FINISHED")).collect(Collectors.toList()));
+        collection.setAllGames(games.stream().filter(game -> !game.getStatusMatch().equals("FINISHED")).collect(Collectors.toList()));
+    }
+
+    public void setActualGame (List<String> urls){
+        setFinishedAndOtherGamesEntity(createListOfGameEntityListOfGameEntity(createMatchesExternalApi(urls)));
     }
 }
