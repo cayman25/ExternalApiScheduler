@@ -26,8 +26,8 @@ public class ApiFootballUrls {
         LinkedHashMap<Integer,String> leagues = createLeagueObjects();
         leagues.forEach( (K,V) -> {
             urls.add("http://api.football-data.org/v2/competitions/" + K + "/matches?" +
-                    "dateFrom="+ DateValidation.getTodayWithAddOrSubstract(0) +
-                    "&dateTo=" + DateValidation.getTodayWithAddOrSubstract(14));
+                    "dateFrom="+ DateValidation.getTodayWithAddOrSubstract(-5) +
+                    "&dateTo=" + DateValidation.getTodayWithAddOrSubstract(1));
         });
             return urls;
     }
