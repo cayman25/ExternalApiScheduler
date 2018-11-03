@@ -11,6 +11,7 @@ import pl.bookmaker.externalservice.demo.apiServices.DateValidation;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import pl.bookmaker.externalservice.demo.ExternalApi.ApiFootballJsonCollection;
 =======
 import pl.bookmaker.externalservice.demo.testService.ApiFootballUrlToGetJsonCollection;
@@ -21,6 +22,9 @@ import pl.bookmaker.externalservice.demo.testService.ApiFootballJsonCollection;
 =======
 import pl.bookmaker.externalservice.demo.ExternalApi.ApiFootballJsonCollection;
 >>>>>>> parent of 40c459c... test
+=======
+import pl.bookmaker.externalservice.demo.testService.ApiFootballJsonCollection;
+>>>>>>> parent of ffaced8... test
 
 import java.util.Arrays;
 import java.util.List;
