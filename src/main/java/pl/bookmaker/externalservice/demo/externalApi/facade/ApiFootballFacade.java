@@ -1,12 +1,12 @@
-package pl.bookmaker.externalservice.demo.testService.facade;
+package pl.bookmaker.externalservice.demo.externalApi.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
-import pl.bookmaker.externalservice.demo.testService.facade.internal.ApiFootballFilter;
-import pl.bookmaker.externalservice.demo.testService.facade.collection.ApiFootballGameCollection;
-import pl.bookmaker.externalservice.demo.testService.facade.internal.ApiFootballPojo;
-import pl.bookmaker.externalservice.demo.testService.facade.internal.ApiFootballUrls;
+import pl.bookmaker.externalservice.demo.externalApi.facade.internal.ApiFootballFilter;
+import pl.bookmaker.externalservice.demo.externalApi.facade.collection.ApiFootballGameCollection;
+import pl.bookmaker.externalservice.demo.externalApi.facade.internal.ApiFootballPojo;
+import pl.bookmaker.externalservice.demo.externalApi.facade.internal.ApiFootballUrls;
 
 import java.util.List;
 
@@ -25,8 +25,7 @@ public class ApiFootballFacade {
     private final ApiFootballFilter apiFootballFilter = new ApiFootballFilter();
 
     public void updateGameCollection(){
-       List<String> urls =  apiFootballUrls.createUrl();
-       List<Game> games = apiFootballPojo.getGameEntityCollection(urls);
+       List<Game> games = apiFootballPojo.getGameEntityCollection(apiFootballUrls.createListUrl());
        System.out.println(apiFootballFilter.getFinishedGames(games).size());
        apiFootballGameCollection.setFinishedGames(apiFootballFilter.getFinishedGames(games));
        apiFootballGameCollection.setAllGames(apiFootballFilter.getAllGames(games));

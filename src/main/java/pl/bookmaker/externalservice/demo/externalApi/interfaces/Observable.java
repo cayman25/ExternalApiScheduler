@@ -1,6 +1,6 @@
-package pl.bookmaker.externalservice.demo.testService.facade.collection;
+package pl.bookmaker.externalservice.demo.externalApi.interfaces;
 
-import pl.bookmaker.externalservice.demo.testService.Observer;
+import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
 
 public interface Observable {
     void register(Observer observer);

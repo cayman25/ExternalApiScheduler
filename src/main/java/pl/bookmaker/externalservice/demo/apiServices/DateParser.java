@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-public class DateValidation {
+public class DateParser {
 
 	public static String getDateFromJson(String date){
 		return date.substring(0, 10);
@@ -34,7 +34,7 @@ public class DateValidation {
 		return new SimpleDateFormat("HH:mm:ss").format(currentDate);
 	}
 
-	public static String getTodayWithAddOrSubstract(int addOrSubstractNumerOfDay) {
+	public static String getTodayWithAddOrSubstraction(int addOrSubstractNumerOfDay) {
 		Date currentDate = new Date();
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.setTime(currentDate);

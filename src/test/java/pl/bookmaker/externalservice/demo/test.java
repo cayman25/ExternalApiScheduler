@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import pl.bookmaker.externalservice.demo.models.entity.Competition;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.models.entity.Team;
-import pl.bookmaker.externalservice.demo.testService.facade.collection.ApiFootballGameCollection;
+import pl.bookmaker.externalservice.demo.externalApi.facade.collection.ApiFootballGameCollection;
 
 import java.util.ArrayList;
 import java.util.List;

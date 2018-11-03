@@ -1,4 +1,4 @@
-package pl.bookmaker.externalservice.demo.testService.facade.internal;
+package pl.bookmaker.externalservice.demo.externalApi.facade.internal;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
@@ -7,18 +7,14 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import pl.bookmaker.externalservice.demo.apiServices.DateValidation;
+import pl.bookmaker.externalservice.demo.apiServices.DateParser;
 import pl.bookmaker.externalservice.demo.models.entity.Competition;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.models.entity.Team;
-import pl.bookmaker.externalservice.demo.models.externalApi.Matches;
 import pl.bookmaker.externalservice.demo.models.externalApi.MatchesExternalApi;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ApiFootballPojo {
 
@@ -51,8 +47,8 @@ public class ApiFootballPojo {
                                 p.getId(),
                                 new Competition(externalMatches.getCompetition().getId(),
                                                 externalMatches.getCompetition().getName()),
-                                DateValidation.getDateFromJson(p.getUtcDate()),
-                                DateValidation.getTimeFromJson(p.getUtcDate()),
+                                DateParser.getDateFromJson(p.getUtcDate()),
+                                DateParser.getTimeFromJson(p.getUtcDate()),
                                 p.getStatus(),
                                 new Team(p.getHomeTeam().getId(), p.getHomeTeam().getName()),
                                 new Team(p.getAwayTeam().getId(), p.getAwayTeam().getName()),

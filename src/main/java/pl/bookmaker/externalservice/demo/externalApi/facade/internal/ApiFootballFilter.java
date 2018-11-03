@@ -1,4 +1,4 @@
-package pl.bookmaker.externalservice.demo.testService.facade.internal;
+package pl.bookmaker.externalservice.demo.externalApi.facade.internal;
 
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 

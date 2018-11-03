@@ -1,6 +1,6 @@
-package pl.bookmaker.externalservice.demo.testService.facade.internal;
+package pl.bookmaker.externalservice.demo.externalApi.facade.internal;
 
-import pl.bookmaker.externalservice.demo.apiServices.DateValidation;
+import pl.bookmaker.externalservice.demo.apiServices.DateParser;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -20,14 +20,14 @@ public class ApiFootballUrls {
         return listOfAvailableLeagues;
     }
 
-    public List<String> createUrl() {
+    public List<String> createListUrl() {
         List<String> urls = new ArrayList<String>();
 
         LinkedHashMap<Integer,String> leagues = createLeagueObjects();
         leagues.forEach( (K,V) -> {
             urls.add("http://api.football-data.org/v2/competitions/" + K + "/matches?" +
-                    "dateFrom="+ DateValidation.getTodayWithAddOrSubstract(-5) +
-                    "&dateTo=" + DateValidation.getTodayWithAddOrSubstract(1));
+                    "dateFrom="+ DateParser.getTodayWithAddOrSubstraction(-5) +
+                    "&dateTo=" + DateParser.getTodayWithAddOrSubstraction(1));
         });
             return urls;
     }

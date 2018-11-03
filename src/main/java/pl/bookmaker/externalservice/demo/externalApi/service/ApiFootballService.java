@@ -1,13 +1,11 @@
-package pl.bookmaker.externalservice.demo.testService.service;
+package pl.bookmaker.externalservice.demo.externalApi.service;
 
-import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import pl.bookmaker.externalservice.demo.testService.Observer;
-import pl.bookmaker.externalservice.demo.testService.facade.ApiFootballFacade;
-import pl.bookmaker.externalservice.demo.testService.facade.collection.ApiFootballGameCollection;
+import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
+import pl.bookmaker.externalservice.demo.externalApi.facade.ApiFootballFacade;
+import pl.bookmaker.externalservice.demo.externalApi.facade.collection.ApiFootballGameCollection;
 
 @Service
 public class ApiFootballService implements Observer {

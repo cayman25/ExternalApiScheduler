@@ -1,13 +1,11 @@
-package pl.bookmaker.externalservice.demo.testService.facade.collection;
+package pl.bookmaker.externalservice.demo.externalApi.facade.collection;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observable;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
-import pl.bookmaker.externalservice.demo.testService.Observer;
-import pl.bookmaker.externalservice.demo.testService.service.ApiFootballService;
+import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 @Component
-public class ApiFootballGameCollection implements Observable{
+public class ApiFootballGameCollection implements Observable {
 
-    private List<Observer> observerList = new ArrayList<>();;
+    private List<Observer> observerList = new ArrayList<>();
     private List<Game> finishedGames = new ArrayList<>();
     private List<Game> allGames = new ArrayList<>();
 
