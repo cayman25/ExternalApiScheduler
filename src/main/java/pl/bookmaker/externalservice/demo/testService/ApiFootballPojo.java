@@ -1,6 +1,7 @@
 package pl.bookmaker.externalservice.demo.testService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+<<<<<<< HEAD:src/main/java/pl/bookmaker/externalservice/demo/testService/ApiFootballPojo.java
 <<<<<<< HEAD:src/main/java/pl/bookmaker/externalservice/demo/ExternalApi/ApiFootballPojo.java
 <<<<<<< HEAD:src/main/java/pl/bookmaker/externalservice/demo/ExternalApi/ApiFootballPojo.java
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 =======
 import org.springframework.boot.context.properties.bind.Bindable;
 >>>>>>> parent of ffaced8... test:src/main/java/pl/bookmaker/externalservice/demo/testService/ApiFootballPojo.java
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> parent of 40c459c... test:src/main/java/pl/bookmaker/externalservice/demo/ExternalApi/ApiFootballPojo.java
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,6 +30,7 @@ import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ApiFootballPojo {
 
@@ -53,6 +58,7 @@ public class ApiFootballPojo {
         return listOfMatchesExternalApi;
     }
 
+<<<<<<< HEAD:src/main/java/pl/bookmaker/externalservice/demo/testService/ApiFootballPojo.java
 <<<<<<< HEAD:src/main/java/pl/bookmaker/externalservice/demo/ExternalApi/ApiFootballPojo.java
 <<<<<<< HEAD:src/main/java/pl/bookmaker/externalservice/demo/ExternalApi/ApiFootballPojo.java
     private List<Game> createListOfGameEntityListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) { ////TO JEST DO POPRAWIENIA ŻEBY BYŁO ŁADNE
@@ -62,29 +68,31 @@ public class ApiFootballPojo {
 =======
     private List<Game> crateListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) { ////TO JEST DO POPRAWIENIA ŻEBY BYŁO ŁADNE
 >>>>>>> parent of ffaced8... test:src/main/java/pl/bookmaker/externalservice/demo/testService/ApiFootballPojo.java
+=======
+    private List<Game> createListOfGameEntityListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) { ////TO JEST DO POPRAWIENIA ŻEBY BYŁO ŁADNE
+>>>>>>> parent of 40c459c... test:src/main/java/pl/bookmaker/externalservice/demo/ExternalApi/ApiFootballPojo.java
         List<Game> listOfGames = new ArrayList<>();
-        matchesExternalApi.forEach(externalMatches -> {
-                    externalMatches.getMatches().forEach(p -> {
-                                listOfGames.add(new Game(
-                                        p.getId(),
-                                        new Competition(externalMatches.getCompetition().getId(),
-                                                        externalMatches.getCompetition().getName()),
-                                        DateValidation.getDateFromJson(p.getUtcDate()),
-                                        DateValidation.getTimeFromJson(p.getUtcDate()),
-                                        p.getStatus(),
-                                        new Team(p.getHomeTeam().getId(), p.getHomeTeam().getName()),
-                                        new Team(p.getAwayTeam().getId(), p.getAwayTeam().getName()),
-                                        p.getScore().getWinner())
-                                );
-                            }
-                    );
+            matchesExternalApi.forEach(externalMatches -> {
+                externalMatches.getMatches().forEach(p -> {
+                        listOfGames.add(new Game(
+                                p.getId(),
+                                new Competition(externalMatches.getCompetition().getId(),
+                                                externalMatches.getCompetition().getName()),
+                                DateValidation.getDateFromJson(p.getUtcDate()),
+                                DateValidation.getTimeFromJson(p.getUtcDate()),
+                                p.getStatus(),
+                                new Team(p.getHomeTeam().getId(), p.getHomeTeam().getName()),
+                                new Team(p.getAwayTeam().getId(), p.getAwayTeam().getName()),
+                                p.getScore().getWinner())
+                        );
                 }
-        );
+                );
+            }
+            );
         return listOfGames;
     }
 <<<<<<< HEAD:src/main/java/pl/bookmaker/externalservice/demo/ExternalApi/ApiFootballPojo.java
 
-<<<<<<< HEAD:src/main/java/pl/bookmaker/externalservice/demo/ExternalApi/ApiFootballPojo.java
     private void setFinishedAndOtherGamesEntity(List<Game> games){
         System.out.println(games.get(0).getStatusMatch());
         ApiFootballGameCollection collection = new ApiFootballGameCollection();
@@ -95,6 +103,7 @@ public class ApiFootballPojo {
     public void setActualGame (List<String> urls){
         setFinishedAndOtherGamesEntity(createListOfGameEntityListOfGameEntity(createMatchesExternalApi(urls)));
     }
+<<<<<<< HEAD:src/main/java/pl/bookmaker/externalservice/demo/testService/ApiFootballPojo.java
 =======
 
 
@@ -102,4 +111,6 @@ public class ApiFootballPojo {
 >>>>>>> 602866516a36c48a67921a27f401eeb264533225:src/main/java/pl/bookmaker/externalservice/demo/testService/ApiFootballPojo.java
 =======
 >>>>>>> parent of ffaced8... test:src/main/java/pl/bookmaker/externalservice/demo/testService/ApiFootballPojo.java
+=======
+>>>>>>> parent of 40c459c... test:src/main/java/pl/bookmaker/externalservice/demo/ExternalApi/ApiFootballPojo.java
 }

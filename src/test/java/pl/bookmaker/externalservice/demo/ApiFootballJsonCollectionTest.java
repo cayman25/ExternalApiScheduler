@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import pl.bookmaker.externalservice.demo.apiServices.DateValidation;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import pl.bookmaker.externalservice.demo.ExternalApi.ApiFootballJsonCollection;
 =======
 import pl.bookmaker.externalservice.demo.testService.ApiFootballUrlToGetJsonCollection;
@@ -17,6 +18,9 @@ import pl.bookmaker.externalservice.demo.testService.ApiFootballUrlToGetJsonColl
 =======
 import pl.bookmaker.externalservice.demo.testService.ApiFootballJsonCollection;
 >>>>>>> parent of ffaced8... test
+=======
+import pl.bookmaker.externalservice.demo.ExternalApi.ApiFootballJsonCollection;
+>>>>>>> parent of 40c459c... test
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +33,7 @@ public class ApiFootballJsonCollectionTest {
 
     @Test
     public void listShouldNotBeEmpty(){
-        ApiFootballUrlToGetJsonCollection jsonCollection = new ApiFootballUrlToGetJsonCollection();
+        ApiFootballJsonCollection jsonCollection = new ApiFootballJsonCollection();
         List<String> list = jsonCollection.createUrl();
 
         Assert.assertFalse(list.isEmpty());
@@ -40,7 +44,7 @@ public class ApiFootballJsonCollectionTest {
 
         final String  VALID_URL="http://api.football-data.org/v2/competitions/2021/matches?dateFrom="+ currentDate + "&dateTo=" + nextDate;
 
-        ApiFootballUrlToGetJsonCollection jsonCollection = new ApiFootballUrlToGetJsonCollection();
+        ApiFootballJsonCollection jsonCollection = new ApiFootballJsonCollection();
         String url = jsonCollection.createUrl().get(0);
         Assert.assertEquals(url, VALID_URL);
     }
