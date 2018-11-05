@@ -1,11 +1,21 @@
 package pl.bookmaker.externalservice.demo.models.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+
 import java.util.Set;
 
 import javax.persistence.*;
 
 @Entity
 @Table
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Game {
 
 	@Id
@@ -22,9 +32,9 @@ public class Game {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private Team awayTeam;
 	private String winner;
-
-	public Game() {
-	}
+	@Column(nullable = false, columnDefinition = "TINYINT(1)")
+	@ColumnDefault(value = "0")
+	private boolean verifiedStatus;
 
 	public Game(int matchID, Competition competition, String dateMatch, String startTime, String statusMatch, Team homeTeam, Team awayTeam, String winner) {
 		this.matchID = matchID;
@@ -34,70 +44,6 @@ public class Game {
 		this.statusMatch = statusMatch;
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
-		this.winner = winner;
-	}
-
-	public int getMatchID() {
-		return matchID;
-	}
-
-	public void setMatchID(int matchID) {
-		this.matchID = matchID;
-	}
-
-	public Competition getCompetition() {
-		return competition;
-	}
-
-	public void setCompetition(Competition competition) {
-		this.competition = competition;
-	}
-
-	public String getDateMatch() {
-		return dateMatch;
-	}
-
-	public void setDateMatch(String dateMatch) {
-		this.dateMatch = dateMatch;
-	}
-
-	public String getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getStatusMatch() {
-		return statusMatch;
-	}
-
-	public void setStatusMatch(String statusMatch) {
-		this.statusMatch = statusMatch;
-	}
-
-	public Team getHomeTeam() {
-		return homeTeam;
-	}
-
-	public void setHomeTeam(Team homeTeam) {
-		this.homeTeam = homeTeam;
-	}
-
-	public Team getAwayTeam() {
-		return awayTeam;
-	}
-
-	public void setAwayTeam(Team awayTeam) {
-		this.awayTeam = awayTeam;
-	}
-
-	public String getWinner() {
-		return winner;
-	}
-
-	public void setWinner(String winner) {
 		this.winner = winner;
 	}
 }

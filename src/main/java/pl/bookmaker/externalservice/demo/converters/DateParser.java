@@ -1,13 +1,9 @@
-package pl.bookmaker.externalservice.demo.apiServices;
+package pl.bookmaker.externalservice.demo.converters;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 public class DateParser {
 

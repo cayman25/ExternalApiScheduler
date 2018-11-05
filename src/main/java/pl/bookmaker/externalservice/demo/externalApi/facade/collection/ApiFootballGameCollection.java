@@ -21,8 +21,12 @@ public class ApiFootballGameCollection implements Observable {
 
 
     public void setFinishedGames(List<Game> finishedGames) {
-        this.finishedGames = finishedGames;
-        notifyObserver();
+        if(finishedGames.size() == this.finishedGames.size())
+            System.out.println("All games were updated");
+        else {
+            this.finishedGames = finishedGames;
+            notifyObserver();
+        }
     }
 
     @Override
@@ -40,5 +44,10 @@ public class ApiFootballGameCollection implements Observable {
         for(Observer o: observerList){
             o.update();
         }
+    }
+
+    public void clearTemporaryCollection() {
+        finishedGames.clear();
+        allGames.clear();
     }
 }

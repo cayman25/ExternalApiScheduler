@@ -26,7 +26,6 @@ public class ApiFootballFacade {
 
     public void updateGameCollection(){
        List<Game> games = apiFootballPojo.getGameEntityCollection(apiFootballUrls.createListUrl());
-       System.out.println(apiFootballFilter.getFinishedGames(games).size());
        apiFootballGameCollection.setFinishedGames(apiFootballFilter.getFinishedGames(games));
        apiFootballGameCollection.setAllGames(apiFootballFilter.getAllGames(games));
     }

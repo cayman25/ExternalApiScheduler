@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import pl.bookmaker.externalservice.demo.apiServices.DateParser;
+import pl.bookmaker.externalservice.demo.converters.DateParser;
 import pl.bookmaker.externalservice.demo.models.entity.Competition;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.models.entity.Team;
