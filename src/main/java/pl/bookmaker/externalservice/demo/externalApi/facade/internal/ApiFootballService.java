@@ -1,11 +1,11 @@
-package pl.bookmaker.externalservice.demo.externalApi.service;
+package pl.bookmaker.externalservice.demo.externalApi.facade.internal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
-import pl.bookmaker.externalservice.demo.externalApi.facade.ApiFootballFacade;
-import pl.bookmaker.externalservice.demo.externalApi.facade.collection.ApiFootballGameCollection;
+import pl.bookmaker.externalservice.demo.externalApi.facade.internal.ApiFootballFacade;
+import pl.bookmaker.externalservice.demo.externalApi.facade.internal.ApiFootballGameCollection;
 import pl.bookmaker.externalservice.demo.repository.GameRepository;
 
 @Service

@@ -16,7 +16,11 @@ import pl.bookmaker.externalservice.demo.models.externalApi.MatchesExternalApi;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApiFootballPojo {
+class ApiFootballJsonConsumer {
+
+    public List<Game> getGameEntityCollection(List<String> urls){
+        return createListOfGameEntity(createMatchesExternalApi(urls));
+    }
 
     private List<MatchesExternalApi> createMatchesExternalApi(List<String> urls) {
         List<MatchesExternalApi> listOfMatchesExternalApi = new ArrayList<>();
@@ -28,13 +32,13 @@ public class ApiFootballPojo {
         converter.setObjectMapper(new ObjectMapper());
         restTemplate.getMessageConverters().add(converter);
         urls.forEach(url -> {
-                    ResponseEntity<MatchesExternalApi> matchesExternalApiResponseEntity = restTemplate.exchange(
-                            url,
-                            HttpMethod.GET,
-                            entity,
-                            MatchesExternalApi.class);
-                    listOfMatchesExternalApi.add(matchesExternalApiResponseEntity.getBody());
-                }
+            ResponseEntity<MatchesExternalApi> matchesExternalApiResponseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    entity,
+                    MatchesExternalApi.class);
+            listOfMatchesExternalApi.add(matchesExternalApiResponseEntity.getBody());
+        }
         );
         return listOfMatchesExternalApi;
     }
@@ -43,25 +47,22 @@ public class ApiFootballPojo {
         List<Game> listOfGames = new ArrayList<>();
             matchesExternalApi.forEach(externalMatches -> {
                 externalMatches.getMatches().forEach(p -> {
-                        listOfGames.add(new Game(
-                                p.getId(),
-                                new Competition(externalMatches.getCompetition().getId(),
-                                                externalMatches.getCompetition().getName()),
-                                DateParser.getDateFromJson(p.getUtcDate()),
-                                DateParser.getTimeFromJson(p.getUtcDate()),
-                                p.getStatus(),
-                                new Team(p.getHomeTeam().getId(), p.getHomeTeam().getName()),
-                                new Team(p.getAwayTeam().getId(), p.getAwayTeam().getName()),
-                                p.getScore().getWinner())
-                        );
-                }
+                    listOfGames.add(new Game(
+                            p.getId(),
+                            new Competition(externalMatches.getCompetition().getId(),
+                                            externalMatches.getCompetition().getName()),
+                            DateParser.getDateFromJson(p.getUtcDate()),
+                            DateParser.getTimeFromJson(p.getUtcDate()),
+                            p.getStatus(),
+                            new Team(p.getHomeTeam().getId(), p.getHomeTeam().getName()),
+                            new Team(p.getAwayTeam().getId(), p.getAwayTeam().getName()),
+                            p.getScore().getWinner())
+                    );
+                    }
                 );
             }
             );
         return listOfGames;
     }
-    
-    public List<Game> getGameEntityCollection(List<String> urls){
-        return createListOfGameEntity(createMatchesExternalApi(urls));
-    }
+
 }

@@ -6,17 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ApiFootballFilter {
+class ApiFootballFilterGame {
 
     public List<Game> getFinishedGames(List<Game> listOfGameEntity) {
-        return listOfGameEntity.stream().filter(game ->
-                        game.getStatusMatch().equals("FINISHED")
-                        && !game.getWinner().isEmpty())
+        return listOfGameEntity.stream()
+                .filter(game -> game.getStatusMatch().equals("FINISHED")&&
+                               !game.getWinner().isEmpty())
                         .collect(Collectors.toList());
         }
 
     public List<Game> getAllGames(List<Game> listOfGameEntity){
-        return listOfGameEntity.stream().filter(game ->
-                !game.getStatusMatch().equals("FINISHED")).collect(Collectors.toList());
+        return listOfGameEntity.stream()
+                .filter(game -> !game.getStatusMatch().equals("FINISHED"))
+                .collect(Collectors.toList());
     }
 }

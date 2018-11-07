@@ -6,7 +6,19 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class ApiFootballUrls {
+class ApiFootballUrls {
+
+    public List<String> createListUrl() {
+        List<String> urls = new ArrayList<String>();
+
+        LinkedHashMap<Integer,String> leagues = createLeagueObjects();
+        leagues.forEach( (K,V) -> {
+            urls.add("http://api.football-data.org/v2/competitions/" + K + "/matches?" +
+                    "dateFrom="+ DateParser.getTodayWithAddOrSubstraction(-1) +
+                    "&dateTo=" + DateParser.getTodayWithAddOrSubstraction(2));
+        });
+        return urls;
+    }
 
     private LinkedHashMap<Integer, String> createLeagueObjects() {
         LinkedHashMap<Integer, String> listOfAvailableLeagues = new LinkedHashMap<Integer, String>();
@@ -18,18 +30,6 @@ public class ApiFootballUrls {
         listOfAvailableLeagues.put(2014, "Spain: Primera Division");
         listOfAvailableLeagues.put(2001, "Europe: UEFA Champions League");
         return listOfAvailableLeagues;
-    }
-
-    public List<String> createListUrl() {
-        List<String> urls = new ArrayList<String>();
-
-        LinkedHashMap<Integer,String> leagues = createLeagueObjects();
-        leagues.forEach( (K,V) -> {
-            urls.add("http://api.football-data.org/v2/competitions/" + K + "/matches?" +
-                    "dateFrom="+ DateParser.getTodayWithAddOrSubstraction(0) +
-                    "&dateTo=" + DateParser.getTodayWithAddOrSubstraction(2));
-        });
-            return urls;
     }
 
 }

@@ -1,4 +1,4 @@
-package pl.bookmaker.externalservice.demo.externalApi.facade.collection;
+package pl.bookmaker.externalservice.demo.externalApi.facade.internal;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Component
-public class ApiFootballGameCollection implements Observable {
+class ApiFootballGameCollection implements Observable {
 
     private List<Observer> observerList = new ArrayList<>();
     private List<Game> finishedGames = new ArrayList<>();
