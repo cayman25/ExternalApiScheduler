@@ -1,11 +1,13 @@
-package pl.bookmaker.externalservice.demo.externalApi.facade.internal;
+package pl.bookmaker.externalservice.demo.externalApi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pl.bookmaker.externalservice.demo.converters.DateParser;
 import pl.bookmaker.externalservice.demo.models.entity.Competition;
@@ -16,16 +18,20 @@ import pl.bookmaker.externalservice.demo.models.externalApi.MatchesExternalApi;
 import java.util.ArrayList;
 import java.util.List;
 
-class ApiFootballJsonConsumer {
+@Component
+class ApiFootballConsumer {
 
-    public List<Game> getGameEntityCollection(List<String> urls){
+    @Value("${api.apiAuthToken}")
+    private String apiToken;
+
+    List<Game> getGameEntityCollection(List<String> urls){
         return createListOfGameEntity(createMatchesExternalApi(urls));
     }
 
-    private List<MatchesExternalApi> createMatchesExternalApi(List<String> urls) {
+    List<MatchesExternalApi> createMatchesExternalApi(List<String> urls) {
         List<MatchesExternalApi> listOfMatchesExternalApi = new ArrayList<>();
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Auth-Token", "bf5c0f84e2214a43978af5da8e98d878");
+        headers.set("X-Auth-Token", apiToken);
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
         RestTemplate restTemplate = new RestTemplate();
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
@@ -43,7 +49,7 @@ class ApiFootballJsonConsumer {
         return listOfMatchesExternalApi;
     }
 
-    private List<Game> createListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) {
+    List<Game> createListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) {
         List<Game> listOfGames = new ArrayList<>();
             matchesExternalApi.forEach(externalMatches -> {
                 externalMatches.getMatches().forEach(p -> {

@@ -9,8 +9,8 @@ import pl.bookmaker.externalservice.demo.externalApi.facade.internal.ApiFootball
 
 public class ApiFootballJsonCollectionTest {
 
-    private String currentDate = DateParser.getTodayWithAddOrSubstraction(-5);
-    private String nextDate = DateParser.getTodayWithAddOrSubstraction(1);
+    private String currentDate = DateParser.getTodayWithAddOrSubstractionOfDay(-5);
+    private String nextDate = DateParser.getTodayWithAddOrSubstractionOfDay(1);
     ApiFootballUrls urls= new ApiFootballUrls();
 
     @Test

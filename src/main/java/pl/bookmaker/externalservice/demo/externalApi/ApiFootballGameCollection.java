@@ -1,4 +1,4 @@
-package pl.bookmaker.externalservice.demo.externalApi.facade.internal;
+package pl.bookmaker.externalservice.demo.externalApi;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ class ApiFootballGameCollection implements Observable {
     private List<Game> allGames = new ArrayList<>();
 
 
-    public void setFinishedGames(List<Game> finishedGames) {
+    void setFinishedGames(List<Game> finishedGames) {
         if(finishedGames.size() == this.finishedGames.size())
             System.out.println("All games were updated");
         else {

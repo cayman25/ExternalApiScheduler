@@ -1,6 +1,13 @@
 package pl.bookmaker.externalservice.demo.converters;
 
+import org.apache.tomcat.jni.Local;
+
+import javax.swing.text.DateFormatter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -16,32 +23,22 @@ public class DateParser {
 	}
 
 	public static String getToday() {
-		Date currentDate = new Date();
-		return new SimpleDateFormat("yyyy-MM-dd").format(currentDate);
-	}
-
-	public static String getTodayWithTime() {
-		Date currentDate = new Date();
-		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentDate);
+		return LocalDate.now().toString();
 	}
 
 	public static String getCurrentTime() {
-		Date currentDate = new Date();
-		return new SimpleDateFormat("HH:mm:ss").format(currentDate);
+		return LocalTime.now().withNano(0).toString();
 	}
 
-	public static String getTodayWithAddOrSubstraction(int addOrSubstractNumerOfDay) {
-		Date currentDate = new Date();
-		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTime(currentDate);
-		calendar.add(Calendar.DATE,addOrSubstractNumerOfDay);
-		Date dateOfGregorianCalendar = calendar.getTime();
-		String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(dateOfGregorianCalendar);
-		return modifiedDate;
+	public static String getTodayWithTime() {
+		LocalDateTime currentTime = LocalDateTime.now().withNano(0);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss");
+		return formatter.format(currentTime);
 	}
 
-
-
-
+	public static String getTodayWithAddOrSubstractionOfDay(int numberOfDay) {
+		LocalDate currentDate = LocalDate.now();
+		return currentDate.plusDays(numberOfDay).toString();
+	}
 
 }

@@ -1,26 +1,32 @@
-package pl.bookmaker.externalservice.demo.externalApi.facade.internal;
+package pl.bookmaker.externalservice.demo.externalApi;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import pl.bookmaker.externalservice.demo.converters.DateParser;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+@Component
 class ApiFootballUrls {
 
-    public List<String> createListUrl() {
+    @Value("${api.url}")
+    private String url;
+
+    List<String> createListUrl() {
         List<String> urls = new ArrayList<String>();
 
         LinkedHashMap<Integer,String> leagues = createLeagueObjects();
         leagues.forEach( (K,V) -> {
-            urls.add("http://api.football-data.org/v2/competitions/" + K + "/matches?" +
-                    "dateFrom="+ DateParser.getTodayWithAddOrSubstraction(-1) +
-                    "&dateTo=" + DateParser.getTodayWithAddOrSubstraction(2));
+            urls.add(url + K + "/matches?" +
+                    "dateFrom="+ DateParser.getTodayWithAddOrSubstractionOfDay(-3) +
+                    "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(5));
         });
         return urls;
     }
 
-    private LinkedHashMap<Integer, String> createLeagueObjects() {
+    LinkedHashMap<Integer, String> createLeagueObjects() {
         LinkedHashMap<Integer, String> listOfAvailableLeagues = new LinkedHashMap<Integer, String>();
         listOfAvailableLeagues.put(2021, "England: Premier League");
         listOfAvailableLeagues.put(2016, "England: Championship");
