@@ -22,7 +22,7 @@ class ApiFootballUrls {
         leagues.forEach( (K,V) -> {
             urls.add(url + K + "/matches?" +
                     "dateFrom="+ DateParser.getTodayWithAddOrSubstractionOfDay(-1) +
-                    "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(7));
+                    "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(14));
         });
         return urls;
     }

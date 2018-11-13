@@ -29,13 +29,13 @@ class ApiFootballService implements Observer {
         apiFootballFacade.updateGameCollection();
     }
 
-    @Scheduled(cron = "0 */5 * * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     void saveAllGameEntityOnePerDay(){
         System.out.println("Save All");
         saveAllGameEntity();
     }
 
-    @Scheduled(cron = "0 */9 * * * *")
+    @Scheduled(cron = "0 30 1 * * *")
     void clearTemporaryGameEntityCollection(){
         System.out.println("Clear Collection");
         apiFootballGameCollection.clearTemporaryCollection();
