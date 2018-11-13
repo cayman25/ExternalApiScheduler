@@ -7,26 +7,23 @@ import pl.bookmaker.externalservice.demo.models.entity.Game;
 import java.util.List;
 
 @Component
-public class ApiFootballFacade {
+class ApiFootballFacade {
 
     private final ApiFootballGameCollection apiFootballGameCollection;
     private final ApiFootballConsumer apiFootballConsumer;
     private final ApiFootballUrls apiFootballUrls;
+    private final ApiFootballFilterGame apiFootballFilterGame = new ApiFootballFilterGame();
 
     @Autowired
-    public ApiFootballFacade(ApiFootballGameCollection apiFootballGameCollection, ApiFootballConsumer apiFootballConsumer, ApiFootballUrls apiFootballUrls) {
+    ApiFootballFacade(ApiFootballGameCollection apiFootballGameCollection, ApiFootballConsumer apiFootballConsumer, ApiFootballUrls apiFootballUrls) {
         this.apiFootballGameCollection=apiFootballGameCollection;
         this.apiFootballConsumer = apiFootballConsumer;
         this.apiFootballUrls = apiFootballUrls;
     }
 
-   //private final ApiFootballUrls apiFootballUrls = new ApiFootballUrls();
-   //private final ApiFootballConsumer apiFootballConsumer = new ApiFootballConsumer();
-    private final ApiFootballFilterGame apiFootballFilterGame = new ApiFootballFilterGame();
-
-    public void updateGameCollection(){
+    void updateGameCollection(){
         List<Game> games = apiFootballConsumer.getGameEntityCollection(apiFootballUrls.createListUrl());
         apiFootballGameCollection.setFinishedGames(apiFootballFilterGame.getFinishedGames(games));
-        apiFootballGameCollection.setAllGames(apiFootballFilterGame.getAllGames(games));
+        apiFootballGameCollection.setAllGames(apiFootballFilterGame.getAllNotFinishedGames(games));
     }
 }

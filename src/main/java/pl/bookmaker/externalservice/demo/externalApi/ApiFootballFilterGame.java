@@ -15,7 +15,7 @@ class ApiFootballFilterGame {
                         .collect(Collectors.toList());
         }
 
-    List<Game> getAllGames(List<Game> listOfGameEntity){
+    List<Game> getAllNotFinishedGames(List<Game> listOfGameEntity){
         return listOfGameEntity.stream()
                 .filter(game -> !game.getStatusMatch().equals("FINISHED"))
                 .collect(Collectors.toList());

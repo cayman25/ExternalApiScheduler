@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import pl.bookmaker.externalservice.demo.converters.DateParser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -12,16 +13,16 @@ import java.util.List;
 class ApiFootballUrls {
 
     @Value("${api.url}")
-    private String url;
+    String url;
 
     List<String> createListUrl() {
         List<String> urls = new ArrayList<String>();
 
-        LinkedHashMap<Integer,String> leagues = createLeagueObjects();
+        HashMap<Integer,String> leagues = createLeagueObjects();
         leagues.forEach( (K,V) -> {
             urls.add(url + K + "/matches?" +
-                    "dateFrom="+ DateParser.getTodayWithAddOrSubstractionOfDay(-3) +
-                    "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(5));
+                    "dateFrom="+ DateParser.getTodayWithAddOrSubstractionOfDay(-1) +
+                    "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(7));
         });
         return urls;
     }

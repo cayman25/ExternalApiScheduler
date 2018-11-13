@@ -46,7 +46,7 @@ class ApiFootballGameCollection implements Observable {
         }
     }
 
-    public void clearTemporaryCollection() {
+    void clearTemporaryCollection() {
         finishedGames.clear();
         allGames.clear();
     }

@@ -23,7 +23,7 @@ class ApiFootballService implements Observer {
         apiFootballGameCollection.register(this);
     }
 
-   @Scheduled(cron = "0 */3 * * * *")
+   @Scheduled(cron = "0 */2 * * * *")
     void updateCollectionGame(){
        System.out.println("Update Collection");
         apiFootballFacade.updateGameCollection();
@@ -35,7 +35,7 @@ class ApiFootballService implements Observer {
         saveAllGameEntity();
     }
 
-    @Scheduled(cron = "0 */31 * * * *")
+    @Scheduled(cron = "0 */9 * * * *")
     void clearTemporaryGameEntityCollection(){
         System.out.println("Clear Collection");
         apiFootballGameCollection.clearTemporaryCollection();
@@ -46,7 +46,7 @@ class ApiFootballService implements Observer {
         gameRepository.saveAll(apiFootballGameCollection.getAllGames());
     }
 
-  private void saveFinishedGameEntity(){
+    private void saveFinishedGameEntity(){
         System.out.println("Saved Finished: " + apiFootballGameCollection.getFinishedGames().size() + " games");
         gameRepository.saveAll(apiFootballGameCollection.getFinishedGames());
     }
