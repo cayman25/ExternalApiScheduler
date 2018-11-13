@@ -1,10 +1,8 @@
 package pl.bookmaker.externalservice.demo.externalApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.TestPropertySource;
 import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
 import pl.bookmaker.externalservice.demo.repository.GameRepository;
 
@@ -48,7 +46,7 @@ class ApiFootballService implements Observer {
 
     private void saveFinishedGameEntity(){
         System.out.println("Saved Finished: " + apiFootballGameCollection.getFinishedGames().size() + " games");
-        gameRepository.saveAll(apiFootballGameCollection.getFinishedGames());
+        gameRepository.saveAll(apiFootballGameCollection.getNotSavedFinishedGames());
     }
 
     @Override
