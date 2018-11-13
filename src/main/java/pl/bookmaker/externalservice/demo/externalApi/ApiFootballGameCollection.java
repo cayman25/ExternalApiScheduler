@@ -13,7 +13,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@Component
 class ApiFootballGameCollection implements Observable {
 
     private List<Observer> observerList = new ArrayList<>();

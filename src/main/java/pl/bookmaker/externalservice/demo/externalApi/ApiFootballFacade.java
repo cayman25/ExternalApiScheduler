@@ -6,19 +6,18 @@ import pl.bookmaker.externalservice.demo.models.entity.Game;
 
 import java.util.List;
 
-@Component
 class ApiFootballFacade {
 
     private final ApiFootballGameCollection apiFootballGameCollection;
     private final ApiFootballConsumer apiFootballConsumer;
     private final ApiFootballUrls apiFootballUrls;
-    private final ApiFootballFilterGame apiFootballFilterGame = new ApiFootballFilterGame();
+    private final ApiFootballFilterGame apiFootballFilterGame;
 
-    @Autowired
-    ApiFootballFacade(ApiFootballGameCollection apiFootballGameCollection, ApiFootballConsumer apiFootballConsumer, ApiFootballUrls apiFootballUrls) {
+    ApiFootballFacade(ApiFootballGameCollection apiFootballGameCollection, ApiFootballConsumer apiFootballConsumer, ApiFootballUrls apiFootballUrls, ApiFootballFilterGame apiFootballFilterGame) {
         this.apiFootballGameCollection=apiFootballGameCollection;
         this.apiFootballConsumer = apiFootballConsumer;
         this.apiFootballUrls = apiFootballUrls;
+        this.apiFootballFilterGame = apiFootballFilterGame;
     }
 
     void updateGameCollection(){
@@ -26,4 +25,5 @@ class ApiFootballFacade {
         apiFootballGameCollection.setFinishedGames(apiFootballFilterGame.getFinishedGames(games));
         apiFootballGameCollection.setAllGames(apiFootballFilterGame.getAllNotFinishedGames(games));
     }
+
 }

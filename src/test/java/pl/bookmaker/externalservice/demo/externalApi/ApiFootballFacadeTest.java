@@ -13,7 +13,7 @@ public class ApiFootballFacadeTest {
   @Mock
   ApiFootballUrls apiFootballUrls;
 
-  ApiFootballFacade api = new ApiFootballFacade(apiFootballGameCollection,apiFootballConsumer,apiFootballUrls);
+  //ApiFootballFacade api = new ApiFootballFacade(apiFootballGameCollection,apiFootballConsumer,apiFootballUrls);
 
   @Test
   public void checkMethod(){

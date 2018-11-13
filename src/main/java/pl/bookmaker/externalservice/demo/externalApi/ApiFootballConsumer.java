@@ -18,7 +18,6 @@ import pl.bookmaker.externalservice.demo.models.externalApi.MatchesExternalApi;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 class ApiFootballConsumer {
 
     @Value("${api.apiAuthToken}")
