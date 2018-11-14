@@ -51,7 +51,7 @@ class ApiFootballService implements Observer {
 
     @Override
     public void update() {
-        System.out.println("Nowe ukończone mecze");
+        System.out.println("New finished game, save action needed");
         saveFinishedGameEntity();
     }
 }

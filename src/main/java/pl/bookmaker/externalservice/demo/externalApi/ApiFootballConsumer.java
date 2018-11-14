@@ -71,4 +71,18 @@ class ApiFootballConsumer {
         return listOfGames;
     }
 
+    HttpEntity<String> setHeaderOfHttpEntity(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Auth-Token", apiToken);
+        HttpEntity<String> httpEntity = new HttpEntity<>("parameters", headers);
+        return httpEntity;
+    }
+
+    RestTemplate setConverter(RestTemplate restTemplate) {
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setObjectMapper(new ObjectMapper());
+        restTemplate.getMessageConverters().add(converter);
+        return restTemplate;
+
+    }
 }
