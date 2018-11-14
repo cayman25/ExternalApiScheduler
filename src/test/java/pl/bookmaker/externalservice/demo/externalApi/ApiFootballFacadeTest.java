@@ -9,11 +9,11 @@ public class ApiFootballFacadeTest {
   ApiFootballGameCollection apiFootballGameCollection;
 
   @Mock
-  ApiFootballConsumer apiFootballConsumer;
+  ApiFootballJsonConsumer apiFootballJsonConsumer;
   @Mock
   ApiFootballUrls apiFootballUrls;
 
-  ApiFootballFacade api = new ApiFootballFacade(apiFootballGameCollection,apiFootballConsumer,apiFootballUrls);
+  ApiFootballFacade api = new ApiFootballFacade(apiFootballGameCollection, apiFootballJsonConsumer,apiFootballUrls);
 
   @Test
   public void checkMethod(){

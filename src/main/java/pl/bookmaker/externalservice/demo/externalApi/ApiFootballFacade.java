@@ -10,19 +10,19 @@ import java.util.List;
 class ApiFootballFacade {
 
     private final ApiFootballGameCollection apiFootballGameCollection;
-    private final ApiFootballConsumer apiFootballConsumer;
+    private final ApiFootballJsonConsumer apiFootballJsonConsumer;
     private final ApiFootballUrls apiFootballUrls;
     private final ApiFootballFilterGame apiFootballFilterGame = new ApiFootballFilterGame();
 
     @Autowired
-    ApiFootballFacade(ApiFootballGameCollection apiFootballGameCollection, ApiFootballConsumer apiFootballConsumer, ApiFootballUrls apiFootballUrls) {
+    ApiFootballFacade(ApiFootballGameCollection apiFootballGameCollection, ApiFootballJsonConsumer apiFootballJsonConsumer, ApiFootballUrls apiFootballUrls) {
         this.apiFootballGameCollection=apiFootballGameCollection;
-        this.apiFootballConsumer = apiFootballConsumer;
+        this.apiFootballJsonConsumer = apiFootballJsonConsumer;
         this.apiFootballUrls = apiFootballUrls;
     }
 
     void updateGameCollection(){
-        List<Game> games = apiFootballConsumer.getGameEntityCollection(apiFootballUrls.createListUrl());
+        List<Game> games = apiFootballJsonConsumer.getGames(apiFootballUrls.createListUrl());
         apiFootballGameCollection.setFinishedGames(apiFootballFilterGame.getFinishedGames(games));
         apiFootballGameCollection.setAllGames(apiFootballFilterGame.getAllNotFinishedGames(games));
     }

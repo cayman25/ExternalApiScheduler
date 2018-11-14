@@ -21,7 +21,7 @@ class ApiFootballUrls {
         HashMap<Integer,String> leagues = createLeagueObjects();
         leagues.forEach( (K,V) -> {
             urls.add(url + K + "/matches?" +
-                    "dateFrom="+ DateParser.getTodayWithAddOrSubstractionOfDay(-1) +
+                    "dateFrom="+ DateParser.getTodayWithAddOrSubstractionOfDay(-10) +
                     "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(14));
         });
         return urls;
