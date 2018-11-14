@@ -28,15 +28,13 @@ class ApiFootballJsonConsumer {
     List<Game> getGames(List<String> urls){
         HttpEntity<String> httpEntity = createHttpEntityWithHeader();
         RestTemplate restTemplate = createRestTemplateWithConverter();
-        List<MatchesExternalApi> list = getMatches(urls,httpEntity,restTemplate);
-        return createListOfGameEntity(list);
+        return createListOfGameEntity(getMatches(urls,httpEntity,restTemplate));
     }
 
     HttpEntity<String> createHttpEntityWithHeader(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Auth-Token",apiToken);
-        HttpEntity<String> httpEntity = new HttpEntity<>("parameters",headers);
-        return httpEntity;
+        return new HttpEntity<>("parameters",headers);
     }
 
     RestTemplate createRestTemplateWithConverter() {
