@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 class ApiFootballUrls {
@@ -15,7 +16,7 @@ class ApiFootballUrls {
     @Value("${api.url}")
     String url;
 
-    List<String> createListUrl() {
+    /*List<String> createListUrl() {
         List<String> urls = new ArrayList<String>();
 
         HashMap<Integer,String> leagues = createLeagueObjects();
@@ -25,6 +26,16 @@ class ApiFootballUrls {
                     "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(14));
         });
         return urls;
+    }*/
+
+    List<String> createListUrl() {
+        HashMap<Integer,String> leagues = createLeagueObjects();
+
+        return leagues.entrySet().stream().map(p ->
+                        url + p.getKey() + "/matches?" +
+                            "dateFrom="+ DateParser.getTodayWithAddOrSubstractionOfDay(-10) +
+                            "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(14))
+                        .collect(Collectors.toList());
     }
 
     LinkedHashMap<Integer, String> createLeagueObjects() {
