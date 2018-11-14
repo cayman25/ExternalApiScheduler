@@ -1,36 +1,39 @@
 package pl.bookmaker.externalservice.demo.externalApi;
 
-
+import org.junit.Assert;
 import org.junit.Test;
-import pl.bookmaker.externalservice.demo.models.entity.Game;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.http.HttpEntity;
+import org.springframework.web.client.RestTemplate;
+import pl.bookmaker.externalservice.demo.models.externalApi.MatchesExternalApi;
 
 import java.util.List;
 
 public class ApiFootballConsumerTest {
 
-  List<String> invalidUrls = List.of("http://invalidurl");
-  ApiFootballConsumer apiConsumer = new ApiFootballConsumer();
+  private ApiFootballConsumer consumer =new ApiFootballConsumer();
+  private HttpEntity<String> entity = consumer.createHttpEntityAndSetHeader();
+//  private RestTemplate restTemplate = new RestTemplate();
 
-  //@Test(expected = org.springframework.web.client.ResourceAccessException.class) //very very slow, not unit
-  public void restTemplateShouldReturnResourceAccessException() {
-    apiConsumer.createMatchesExternalApi(invalidUrls);
-  }
-
-/*
   @Test
-  public void restTemplateShouldReturn403(){
-  }
-*/
-
-  @Test(expected = NullPointerException.class)
-  public void listOfGameEntityShouldReturnNPE() {
-    List<Game> list = apiConsumer.createListOfGameEntity(null);
+  public void headerHttpEntityShouldNotBeNull(){
+    Assert.assertNotNull(entity.getHeaders());
   }
 
-/*
   @Test
-  public void listOfGameEntityShouldHaveValue(){
+  public void headerHttpEntityShouldHaveCorrectXAuthToken(){
+    Assert.assertTrue(entity.getHeaders().toString().contains("X-Auth-Token"));
   }
-*/
+
+  @Test
+  public void headerHttpEntityShouldHaveBody() {
+    Assert.assertTrue(entity.hasBody());
+  }
+
+  @Test
+  public void headersHttpEntityShouldHaveParametersInBody(){
+    Assert.assertTrue(entity.getBody().contains("parameters"));
+  }
 
 }

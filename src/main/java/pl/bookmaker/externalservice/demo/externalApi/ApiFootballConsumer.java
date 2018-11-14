@@ -23,32 +23,52 @@ class ApiFootballConsumer {
 
     @Value("${api.apiAuthToken}")
     private String apiToken;
+    RestTemplate restTemplate = new RestTemplate();
+
 
     List<Game> getGameEntityCollection(List<String> urls){
-        return createListOfGameEntity(createMatchesExternalApi(urls));
+        HttpEntity<String> httpEntity = createHttpEntityAndSetHeader();
+        RestTemplate restTemplate = createRestTemplateAndAddConverter();
+        List<MatchesExternalApi> list = getListOfMatchesExternalApi(urls,httpEntity,restTemplate);
+        return createListOfGameEntity(list);
     }
 
-    List<MatchesExternalApi> createMatchesExternalApi(List<String> urls) {
-        List<MatchesExternalApi> listOfMatchesExternalApi = new ArrayList<>();
+    HttpEntity<String> createHttpEntityAndSetHeader(){
+        HttpEntity<String> httpEntity = new HttpEntity<>("parameters", createHttpHeaderWithApiToken());
+        return httpEntity;
+    }
+
+    HttpHeaders createHttpHeaderWithApiToken() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Auth-Token", apiToken);
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-        RestTemplate restTemplate = new RestTemplate();
+        return headers;
+    }
+
+    RestTemplate createRestTemplateAndAddConverter() {
+        this.restTemplate.getMessageConverters().add(createMappingJacksonConverter());
+        return restTemplate;
+    }
+
+    MappingJackson2HttpMessageConverter createMappingJacksonConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setObjectMapper(new ObjectMapper());
-        restTemplate.getMessageConverters().add(converter);
+        return converter;
+    }
+
+    List<MatchesExternalApi> getListOfMatchesExternalApi (List<String> urls, HttpEntity<String> entity, RestTemplate restTemplate){
+        List<MatchesExternalApi> listOfMatchesExternalApi = new ArrayList<>();
         urls.forEach(url -> {
-            ResponseEntity<MatchesExternalApi> matchesExternalApiResponseEntity = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    entity,
-                    MatchesExternalApi.class);
-            listOfMatchesExternalApi.add(matchesExternalApiResponseEntity.getBody());
-        }
+                    ResponseEntity<MatchesExternalApi> matchesExternalApiResponseEntity = restTemplate.exchange(
+                            url,
+                            HttpMethod.GET,
+                            entity,
+                            MatchesExternalApi.class);
+                    listOfMatchesExternalApi.add(matchesExternalApiResponseEntity.getBody());
+                }
         );
         return listOfMatchesExternalApi;
     }
-
+    
     List<Game> createListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) {
         List<Game> listOfGames = new ArrayList<>();
             matchesExternalApi.forEach(externalMatches -> {
@@ -70,19 +90,25 @@ class ApiFootballConsumer {
             );
         return listOfGames;
     }
-
-    HttpEntity<String> setHeaderOfHttpEntity(){
+    
+    /*    List<MatchesExternalApi> createMatchesExternalApi(List<String> urls) {
+        List<MatchesExternalApi> listOfMatchesExternalApi = new ArrayList<>();
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Auth-Token", apiToken);
-        HttpEntity<String> httpEntity = new HttpEntity<>("parameters", headers);
-        return httpEntity;
-    }
-
-    RestTemplate setConverter(RestTemplate restTemplate) {
+        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+        RestTemplate restTemplate = new RestTemplate();
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setObjectMapper(new ObjectMapper());
         restTemplate.getMessageConverters().add(converter);
-        return restTemplate;
-
-    }
+        urls.forEach(url -> {
+            ResponseEntity<MatchesExternalApi> matchesExternalApiResponseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    entity,
+                    MatchesExternalApi.class);
+            listOfMatchesExternalApi.add(matchesExternalApiResponseEntity.getBody());
+        }
+        );
+        return listOfMatchesExternalApi;
+    }*/
 }

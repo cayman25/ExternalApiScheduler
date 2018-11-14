@@ -9,7 +9,6 @@ import pl.bookmaker.externalservice.demo.converters.DateParser;
 import java.util.HashMap;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
 public class ApiFootballUrlsTest {
 
   ApiFootballUrls url = new ApiFootballUrls();
@@ -17,8 +16,8 @@ public class ApiFootballUrlsTest {
   List<String> urls = url.createListUrl();
 
   String englandUrl = url.url + "2021" + "/matches?" +
-          "dateFrom=" + DateParser.getTodayWithAddOrSubstractionOfDay(-0) +
-          "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(7);
+          "dateFrom=" + DateParser.getTodayWithAddOrSubstractionOfDay(-7) +
+          "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(14);
 
   @Test
   public void mapShouldNotBeNull() {

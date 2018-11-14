@@ -21,7 +21,7 @@ class ApiFootballService implements Observer {
         apiFootballGameCollection.register(this);
     }
 
-   @Scheduled(cron = "0 */2 * * * *")
+   @Scheduled(cron = "0 */1 * * * *")
     void updateCollectionGame(){
        System.out.println("Update Collection");
         apiFootballFacade.updateGameCollection();
