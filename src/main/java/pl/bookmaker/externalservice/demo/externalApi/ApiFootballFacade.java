@@ -1,29 +1,32 @@
 package pl.bookmaker.externalservice.demo.externalApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 
 import java.util.List;
 
-@Component
+
 class ApiFootballFacade {
 
-    private final ApiFootballGameCollection apiFootballGameCollection;
-    private final ApiFootballJsonConsumer apiFootballJsonConsumer;
-    private final ApiFootballUrls apiFootballUrls;
-    private final ApiFootballFilterGame apiFootballFilterGame = new ApiFootballFilterGame();
+    private final ApiFootballUrls urls;
+    private final ApiFootballJsonConsumer consumer;
+    private final ApiFootballFilterGame filter;
 
     @Autowired
-    ApiFootballFacade(ApiFootballGameCollection apiFootballGameCollection, ApiFootballJsonConsumer apiFootballJsonConsumer, ApiFootballUrls apiFootballUrls) {
-        this.apiFootballGameCollection=apiFootballGameCollection;
-        this.apiFootballJsonConsumer = apiFootballJsonConsumer;
-        this.apiFootballUrls = apiFootballUrls;
+    private ApiFootballGameCollection collection;
+
+    ApiFootballFacade(ApiFootballUrls urls, ApiFootballJsonConsumer consumer, ApiFootballFilterGame filter, ApiFootballGameCollection collection) {
+        this.urls=urls;
+        this.consumer=consumer;
+        this.filter=filter;
+    //    this.collection = collection;
     }
 
     void updateGameCollection(){
-        List<Game> games = apiFootballJsonConsumer.getGames(apiFootballUrls.createListUrl());
-        apiFootballGameCollection.setFinishedGames(apiFootballFilterGame.getFinishedGames(games));
-        apiFootballGameCollection.setAllGames(apiFootballFilterGame.getAllNotFinishedGames(games));
+        List<Game> games = consumer.getGames(urls.createListUrl());
+        collection.setFinishedGames(filter.getFinishedGames(games));
+        collection.setAllGames(filter.getAllNotFinishedGames(games));
     }
 }

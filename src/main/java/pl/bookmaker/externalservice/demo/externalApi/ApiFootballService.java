@@ -1,6 +1,7 @@
 package pl.bookmaker.externalservice.demo.externalApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
@@ -9,20 +10,22 @@ import pl.bookmaker.externalservice.demo.repository.GameRepository;
 @Service
 class ApiFootballService implements Observer {
 
-    private final GameRepository gameRepository;
-    private final ApiFootballFacade apiFootballFacade;
-    private final ApiFootballGameCollection apiFootballGameCollection;
+    private GameRepository gameRepository;
 
     @Autowired
-    ApiFootballService(ApiFootballFacade apiFootballFacade, ApiFootballGameCollection apiFootballGameCollection, GameRepository gamerepository) {
-        this.apiFootballFacade = apiFootballFacade;
-        this.apiFootballGameCollection = apiFootballGameCollection;
-        this.gameRepository=gamerepository;
-        apiFootballGameCollection.register(this);
+    private ApiFootballGameCollection apiFootballGameCollection;
+
+    private final ApiFootballConfiguration configuration = new ApiFootballConfiguration();
+    private final ApiFootballFacade apiFootballFacade = configuration.apiFootballFacade(gameRepository);
+
+    ApiFootballService() {
+        this.apiFootballGameCollection = new ApiFootballGameCollection();
+        this.apiFootballGameCollection.register(this);
     }
 
-   @Scheduled(cron = "0 */1 * * * *")
+   @Scheduled(cron = "*/30 * * * * *")
     void updateCollectionGame(){
+      apiFootballGameCollection.register(this);
        System.out.println("Update Collection");
         apiFootballFacade.updateGameCollection();
     }
@@ -37,7 +40,7 @@ class ApiFootballService implements Observer {
     void clearTemporaryGameEntityCollection(){
         System.out.println("Clear Collection");
         apiFootballGameCollection.clearTemporaryCollection();
-        }
+    }
 
     private void saveAllGameEntity(){
         System.out.println("Saved All: " + apiFootballGameCollection.getAllGames().size() + " games");

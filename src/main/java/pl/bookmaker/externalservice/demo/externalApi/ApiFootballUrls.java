@@ -7,18 +7,18 @@ import pl.bookmaker.externalservice.demo.converters.DateParser;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
 class ApiFootballUrls {
 
-    @Value("${api.url}")
-    String url;
+    //@Value("${api.url}")
+    String url = "http://api.football-data.org/v2/competitions/";
 
     List<String> createListUrl() {
         HashMap<Integer,String> leagues = createLeagueObjects();
 
         return leagues.entrySet().stream().map(p ->
                         url + p.getKey() + "/matches?" +
-                            "dateFrom="+ DateParser.getTodayWithAddOrSubstractionOfDay(-1) +
+                            "dateFrom="+ DateParser.getTodayWithAddOrSubstractionOfDay(-10) +
                             "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(14))
                         .collect(Collectors.toList());
     }
@@ -27,10 +27,10 @@ class ApiFootballUrls {
         return new HashMap<>(Map.ofEntries
                 (Map.entry(2021, "England: Premier League"),
                 (Map.entry(2016, "England: Championship")),
-                (Map.entry(2015, "France: Ligue 1")),
+/*                (Map.entry(2015, "France: Ligue 1")),
                 (Map.entry(2002, "Germany: Bundesliga")),
                 (Map.entry(2019, "Italy: Serie A")),
-                (Map.entry(2014, "Spain: Primera Division")),
+                (Map.entry(2014, "Spain: Primera Division")),*/
                 (Map.entry(2001, "Europe: UEFA Champions League"))));
     }
 }

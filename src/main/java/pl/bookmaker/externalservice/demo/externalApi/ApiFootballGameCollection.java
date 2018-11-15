@@ -3,7 +3,9 @@ package pl.bookmaker.externalservice.demo.externalApi;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+import pl.bookmaker.externalservice.demo.externalApi.interfaces.ApiFootballTree;
 import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observable;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
@@ -14,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Component
-class ApiFootballGameCollection implements Observable {
+class ApiFootballGameCollection implements Observable{
 
     private List<Observer> observerList = new ArrayList<>();
     private List<Game> finishedGames = new ArrayList<>();
@@ -28,6 +30,8 @@ class ApiFootballGameCollection implements Observable {
             notSavedFinishedGames = finishedGames;
             notSavedFinishedGames.removeAll(this.finishedGames);
             this.finishedGames = finishedGames;
+            System.out.println(this.finishedGames.size());
+            System.out.println(observerList.size());
             notifyObserver();
         }
     }

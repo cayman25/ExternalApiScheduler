@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
 class ApiFootballJsonConsumer {
 
-    @Value("${api.apiAuthToken}")
-    private String apiToken;
+    //@Value("${api.apiAuthToken}")
+    private String apiToken = "bf5c0f84e2214a43978af5da8e98d878";
 
     List<Game> getGames(List<String> urls){
         HttpEntity<String> httpEntity = createHttpEntityWithHeader();
