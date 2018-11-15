@@ -23,8 +23,8 @@ class ApiFootballUrls {
                         .collect(Collectors.toList());
     }
 
-    LinkedHashMap<Integer, String> createLeagueObjects() {
-        return new LinkedHashMap<Integer, String>(Map.ofEntries
+    HashMap<Integer, String> createLeagueObjects() {
+        return new HashMap<>(Map.ofEntries
                 (Map.entry(2021, "England: Premier League"),
                 (Map.entry(2016, "England: Championship")),
                 (Map.entry(2015, "France: Ligue 1")),
