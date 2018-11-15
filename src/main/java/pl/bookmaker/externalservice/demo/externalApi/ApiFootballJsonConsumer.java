@@ -7,10 +7,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import pl.bookmaker.externalservice.demo.converters.DateParser;
-import pl.bookmaker.externalservice.demo.models.entity.Competition;
+import pl.bookmaker.externalservice.demo.externalApi.FactoryMethodGame.FactoryFromMatchesExternalApi;
+import pl.bookmaker.externalservice.demo.externalApi.FactoryMethodGame.FactoryMethodImplementation;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
-import pl.bookmaker.externalservice.demo.models.entity.Team;
 import pl.bookmaker.externalservice.demo.models.externalApi.MatchesExternalApi;
 
 import java.util.List;
@@ -52,7 +51,9 @@ class ApiFootballJsonConsumer {
     }
 
     List<Game> createListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) {
-        return matchesExternalApi.stream().flatMap(externalMatches ->
+        return new FactoryMethodImplementation().getGame(matchesExternalApi);
+
+        /*matchesExternalApi.stream().flatMap(externalMatches ->
                 externalMatches.getMatches().stream().map(p ->
                         (new Game(
                                 p.getId(),
@@ -64,6 +65,6 @@ class ApiFootballJsonConsumer {
                                 new Team(p.getHomeTeam().getId(), p.getHomeTeam().getName()),
                                 new Team(p.getAwayTeam().getId(), p.getAwayTeam().getName()),
                                 p.getScore().getWinner())))).
-                collect(Collectors.toList());
+                collect(Collectors.toList());*/
     }
 }
