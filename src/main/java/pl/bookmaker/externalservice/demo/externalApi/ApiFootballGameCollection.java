@@ -2,21 +2,16 @@ package pl.bookmaker.externalservice.demo.externalApi;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import pl.bookmaker.externalservice.demo.externalApi.interfaces.ApiFootballTree;
 import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observable;
-import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
+import pl.bookmaker.externalservice.demo.models.entity.Game;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@Component
-class ApiFootballGameCollection implements Observable{
+class ApiFootballGameCollection implements Observable {
 
     private List<Observer> observerList = new ArrayList<>();
     private List<Game> finishedGames = new ArrayList<>();
@@ -24,14 +19,12 @@ class ApiFootballGameCollection implements Observable{
     private List<Game> notSavedFinishedGames = new ArrayList<>();
 
     void setFinishedGames(List<Game> finishedGames) {
-        if(finishedGames.size() == this.finishedGames.size())
+        if (finishedGames.size() == this.finishedGames.size()) {
             System.out.println("All games were updated");
-        else {
+        } else {
             notSavedFinishedGames = finishedGames;
             notSavedFinishedGames.removeAll(this.finishedGames);
             this.finishedGames = finishedGames;
-            System.out.println(this.finishedGames.size());
-            System.out.println(observerList.size());
             notifyObserver();
         }
     }
@@ -48,7 +41,7 @@ class ApiFootballGameCollection implements Observable{
 
     @Override
     public void notifyObserver() {
-        for(Observer o: observerList){
+        for (Observer o : observerList) {
             o.update();
         }
     }

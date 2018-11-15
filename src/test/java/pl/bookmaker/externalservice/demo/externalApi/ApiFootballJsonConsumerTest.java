@@ -1,3 +1,4 @@
+/*
 package pl.bookmaker.externalservice.demo.externalApi;
 
 import org.junit.Assert;
@@ -7,7 +8,7 @@ import org.springframework.http.HttpEntity;
 public class ApiFootballJsonConsumerTest {
 
   private ApiFootballJsonConsumer consumer =new ApiFootballJsonConsumer();
-  private HttpEntity<String> entity = consumer.createHttpEntityWithHeader();
+ // private HttpEntity<String> entity = consumer.createHttpEntityWithHeader();
 //  private RestTemplate restTemplate = new RestTemplate();
 
   @Test
@@ -31,3 +32,4 @@ public class ApiFootballJsonConsumerTest {
   }
 
 }
+*/
