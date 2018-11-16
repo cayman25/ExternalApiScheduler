@@ -61,6 +61,4 @@ public class ApiFootballFacade implements Observer {
         System.out.println("New finished game, save action needed");
         saveFinishedGameEntity();
     }
-
-
 }

@@ -22,7 +22,6 @@ public class ApiFootballConfiguration {
         ApiFootballJsonConsumer consumer = new ApiFootballJsonConsumer();
         ApiFootballFilterGame filter = new ApiFootballFilterGame();
         ApiFootballGameCollection collection = new ApiFootballGameCollection();
-
         return new ApiFootballFacade(urls, consumer, filter, collection);
     }
 

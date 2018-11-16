@@ -1,15 +1,15 @@
-/*
 package pl.bookmaker.externalservice.demo.externalApi;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.client.RestTemplate;
 
 public class ApiFootballJsonConsumerTest {
 
   private ApiFootballJsonConsumer consumer =new ApiFootballJsonConsumer();
- // private HttpEntity<String> entity = consumer.createHttpEntityWithHeader();
-//  private RestTemplate restTemplate = new RestTemplate();
+  private HttpEntity<String> entity = consumer.createHttpEntityWithHeader("testToken");
+  private RestTemplate restTemplate = new RestTemplate();
 
   @Test
   public void headerHttpEntityShouldNotBeNull(){
@@ -30,6 +30,5 @@ public class ApiFootballJsonConsumerTest {
   public void headersHttpEntityShouldHaveParametersInBody(){
     Assert.assertTrue(entity.getBody().contains("parameters"));
   }
-
 }
-*/
+

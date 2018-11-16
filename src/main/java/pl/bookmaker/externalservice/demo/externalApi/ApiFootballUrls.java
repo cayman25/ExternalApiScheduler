@@ -14,14 +14,14 @@ class ApiFootballUrls {
 
         return leagues.entrySet().stream().map(p ->
                 url + p.getKey() + "/matches?" +
-                        "dateFrom=" + DateParser.getTodayWithAddOrSubstractionOfDay(-10) +
+                        "dateFrom=" + DateParser.getTodayWithAddOrSubstractionOfDay(-1) +
                         "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(14))
                 .collect(Collectors.toList());
     }
 
     HashMap<Integer, String> createLeagueObjects() {
         return new HashMap<>(Map.ofEntries
-                (Map.entry(2021, "England: Premier League"),
+                        (Map.entry(2021, "England: Premier League"),
                         (Map.entry(2016, "England: Championship")),
                         (Map.entry(2015, "France: Ligue 1")),
                         (Map.entry(2002, "Germany: Bundesliga")),
