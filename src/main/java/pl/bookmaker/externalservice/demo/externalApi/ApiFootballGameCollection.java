@@ -19,9 +19,9 @@ class ApiFootballGameCollection implements Observable {
     private List<Game> notSavedFinishedGames = new ArrayList<>();
 
     void setFinishedGames(List<Game> finishedGames) {
-        if (finishedGames.size() == this.finishedGames.size()) {
+        if (finishedGames.size() == this.finishedGames.size())
             System.out.println("All games were updated");
-        } else {
+        else {
             notSavedFinishedGames = finishedGames;
             notSavedFinishedGames.removeAll(this.finishedGames);
             this.finishedGames = finishedGames;

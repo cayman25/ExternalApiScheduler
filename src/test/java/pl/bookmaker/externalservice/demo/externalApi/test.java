@@ -24,7 +24,20 @@ public class test {
         FactoryMethodImplementation factory = new FactoryMethodImplementation();
         List<String> list = List.of("a","b","s");
         factory.getGame(list);
+        }
 
+    @Test
+    public void test1(){
+        ApiFootballConfiguration configuration = new ApiFootballConfiguration();
+        InMemoryGameRepository gameRepository = new InMemoryGameRepository();
+        ApiFootballFacade facade = configuration.apiFootballFacade(gameRepository);
+        gameRepository.save(new Game(12,null,"data","data","Finished",null,null,"AWAY_TEAM"));
+        gameRepository.save(new Game(13,null,"data","data","Finished",null,null,"Home_team"));
+        gameRepository.save(new Game(14,null,"data","data","Finished",null,null,"AWAY_TEAM"));
+        System.out.println(gameRepository.findOne(13).getWinner());
+
+      //  facade.update();
+
+       // facade.urls.createListUrl()
     }
-
 }

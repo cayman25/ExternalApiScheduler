@@ -16,4 +16,14 @@ public class ApiFootballConfiguration {
 
         return new ApiFootballFacade(urls, consumer, filter, collection);
     }
+
+    ApiFootballFacade apiFootballFacade(InMemoryGameRepository gameRepository) {
+        ApiFootballUrls urls = new ApiFootballUrls();
+        ApiFootballJsonConsumer consumer = new ApiFootballJsonConsumer();
+        ApiFootballFilterGame filter = new ApiFootballFilterGame();
+        ApiFootballGameCollection collection = new ApiFootballGameCollection();
+
+        return new ApiFootballFacade(urls, consumer, filter, collection);
+    }
+
 }
