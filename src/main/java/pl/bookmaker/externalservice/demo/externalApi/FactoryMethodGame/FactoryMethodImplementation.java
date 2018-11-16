@@ -15,10 +15,9 @@ public class FactoryMethodImplementation {
         if(list.size()==0)
             System.out.println("Empty List");
 
-        else if (list.get(0) instanceof MatchesExternalApi) {
-            System.out.println("MatchesExternal");
+        else if (list.get(0) instanceof MatchesExternalApi)
             return new FactoryFromMatchesExternalApi(list).getGames();
-        }
+
         return null;
             }
 }

@@ -1,5 +1,6 @@
 package pl.bookmaker.externalservice.demo.externalApi;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,10 +12,12 @@ import pl.bookmaker.externalservice.demo.repository.GameRepository;
 import java.util.List;
 
 @Service
-class ApiFootballFacade implements Observer {
+
+public class ApiFootballFacade implements Observer {
 
     @Autowired
     private GameRepository gameRepository;
+
     private final ApiFootballUrls urls;
     private final ApiFootballJsonConsumer consumer;
     private final ApiFootballFilterGame filter;
@@ -22,7 +25,6 @@ class ApiFootballFacade implements Observer {
 
     @Value("${api.apiAuthToken}")
     private String apiToken;
-
     @Value("${api.url}")
     private String url;
 
@@ -34,36 +36,22 @@ class ApiFootballFacade implements Observer {
         collection.register(this);
     }
 
-    @Scheduled(cron = "*/30 * * * * *")
-    void updateCollectionGame() {
-        System.out.println("Update Collection");
-        updateGameCollection();
-    }
-
-    @Scheduled(cron = "0 0 1 * * *")
-    void saveAllGameEntityOnePerDay() {
-        System.out.println("Save All");
-        saveAllGameEntity();
-    }
-
-    @Scheduled(cron = "0 30 1 * * *")
-    void clearTemporaryGameEntityCollection() {
-        System.out.println("Clear Collection");
+    public void clearTemporaryCollection() {
         collection.clearTemporaryCollection();
     }
 
-    void updateGameCollection() {
+    public void updateGameCollection() {
         List<Game> games = consumer.getGames(urls.createListUrl(url),apiToken);
         collection.setFinishedGames(filter.getFinishedGames(games));
         collection.setAllGames(filter.getAllNotFinishedGames(games));
     }
 
-    private void saveAllGameEntity() {
+    public void saveAllGameEntity() {
         System.out.println("Saved All: " + collection.getAllGames().size() + " games");
         gameRepository.saveAll(collection.getAllGames());
     }
 
-    private void saveFinishedGameEntity() {
+    void saveFinishedGameEntity() {
         System.out.println("Saved Finished: " + collection.getFinishedGames().size() + " games");
         gameRepository.saveAll(collection.getNotSavedFinishedGames());
     }
@@ -73,4 +61,6 @@ class ApiFootballFacade implements Observer {
         System.out.println("New finished game, save action needed");
         saveFinishedGameEntity();
     }
+
+
 }
