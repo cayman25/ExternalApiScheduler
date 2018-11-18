@@ -12,7 +12,7 @@ public class ApiFootballConfiguration {
         ApiFootballUrls urls = new ApiFootballUrls();
         ApiFootballJsonConsumer consumer = new ApiFootballJsonConsumer();
         ApiFootballFilterGame filter = new ApiFootballFilterGame();
-        ApiFootballGameCollection collection = new ApiFootballGameCollection();
+        ApiFootballGamesCollections collection = new ApiFootballGamesCollections();
 
         return new ApiFootballFacade(urls, consumer, filter, collection);
     }
@@ -21,7 +21,7 @@ public class ApiFootballConfiguration {
         ApiFootballUrls urls = new ApiFootballUrls();
         ApiFootballJsonConsumer consumer = new ApiFootballJsonConsumer();
         ApiFootballFilterGame filter = new ApiFootballFilterGame();
-        ApiFootballGameCollection collection = new ApiFootballGameCollection();
+        ApiFootballGamesCollections collection = new ApiFootballGamesCollections();
         return new ApiFootballFacade(urls, consumer, filter, collection);
     }
 

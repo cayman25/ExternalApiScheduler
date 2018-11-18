@@ -1,11 +1,8 @@
 package pl.bookmaker.externalservice.demo.externalApi;
 
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.repository.GameRepository;
@@ -21,14 +18,14 @@ public class ApiFootballFacade implements Observer {
     public final ApiFootballUrls urls;
     public final ApiFootballJsonConsumer consumer;
     public final ApiFootballFilterGame filter;
-    public final ApiFootballGameCollection collection;
+    public final ApiFootballGamesCollections collection;
 
     @Value("${api.apiAuthToken}")
     private String apiToken;
     @Value("${api.url}")
     private String url;
 
-    ApiFootballFacade(ApiFootballUrls urls, ApiFootballJsonConsumer consumer, ApiFootballFilterGame filter, ApiFootballGameCollection collection) {
+    ApiFootballFacade(ApiFootballUrls urls, ApiFootballJsonConsumer consumer, ApiFootballFilterGame filter, ApiFootballGamesCollections collection) {
         this.urls = urls;
         this.consumer = consumer;
         this.filter = filter;
@@ -51,7 +48,7 @@ public class ApiFootballFacade implements Observer {
         gameRepository.saveAll(collection.getAllGames());
     }
 
-    private void saveFinishedGameEntity() {
+    private void saveNotFinishedGames() {
         System.out.println("Saved Finished: " + collection.getFinishedGames().size() + " games");
         gameRepository.saveAll(collection.getNotSavedFinishedGames());
     }
@@ -59,6 +56,6 @@ public class ApiFootballFacade implements Observer {
     @Override
     public void update() {
         System.out.println("New finished game, save action needed");
-        saveFinishedGameEntity();
+        saveNotFinishedGames();
     }
 }

@@ -7,11 +7,11 @@ import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
-@Setter
-class ApiFootballGameCollection implements Observable {
+class ApiFootballGamesCollections implements Observable {
 
     private List<Observer> observerList = new ArrayList<>();
     private List<Game> finishedGames = new ArrayList<>();
@@ -19,14 +19,30 @@ class ApiFootballGameCollection implements Observable {
     private List<Game> notSavedFinishedGames = new ArrayList<>();
 
     void setFinishedGames(List<Game> finishedGames) {
-        if (finishedGames.size() == this.finishedGames.size())
-            System.out.println("All games were updated");
-        else {
-            notSavedFinishedGames = finishedGames;
-            notSavedFinishedGames.removeAll(this.finishedGames);
-            this.finishedGames = finishedGames;
-            notifyObserver();
+       if(finishedGames.size() != this.finishedGames.size()) {
+           notSavedFinishedGames.clear();
+           notSavedFinishedGames.addAll(finishedGames);
+           notSavedFinishedGames.removeAll(this.finishedGames);
+           this.finishedGames.clear();
+           this.finishedGames.addAll(finishedGames);
+           notifyObserver();
+       }
+       else
+           System.out.println("Nothing was changed");
         }
+
+
+    void setAllGames(List<Game> allGames){
+        this.allGames.addAll(allGames);
+    }
+
+    void setNotSavedFinishedGames(List<Game> notSavedFinishedGamesFinishedGames){
+        this.notSavedFinishedGames.addAll(notSavedFinishedGamesFinishedGames);
+    }
+
+    void clearTemporaryCollection() {
+        finishedGames.clear();
+        allGames.clear();
     }
 
     @Override
@@ -41,13 +57,7 @@ class ApiFootballGameCollection implements Observable {
 
     @Override
     public void notifyObserver() {
-        for (Observer o : observerList) {
+        for (Observer o : observerList)
             o.update();
-        }
-    }
-
-    void clearTemporaryCollection() {
-        finishedGames.clear();
-        allGames.clear();
     }
 }

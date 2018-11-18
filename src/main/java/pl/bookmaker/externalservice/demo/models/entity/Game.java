@@ -46,4 +46,13 @@ public class Game {
 		this.awayTeam = awayTeam;
 		this.winner = winner;
 	}
+
+	@Override
+	public boolean equals(Object object){
+		if (!(object instanceof Game || object == null))
+			return false;
+		Game c = (Game) object;
+		return c.getMatchID()==getMatchID();
+	}
 }
+
