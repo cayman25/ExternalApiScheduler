@@ -19,7 +19,9 @@ class ApiFootballGamesCollections implements Observable {
     private List<Game> notSavedFinishedGames = new ArrayList<>();
 
     void setFinishedGames(List<Game> finishedGames) {
-       if(finishedGames.size() != this.finishedGames.size()) {
+       if(finishedGames.size() == this.finishedGames.size() || finishedGames.size()==0)
+           System.out.println("Nothing was changed");
+       else{
            notSavedFinishedGames.clear();
            notSavedFinishedGames.addAll(finishedGames);
            notSavedFinishedGames.removeAll(this.finishedGames);
@@ -27,20 +29,18 @@ class ApiFootballGamesCollections implements Observable {
            this.finishedGames.addAll(finishedGames);
            notifyObserver();
        }
-       else
-           System.out.println("Nothing was changed");
-        }
+    }
 
 
     void setAllGames(List<Game> allGames){
-        this.allGames.addAll(allGames);
+        this.allGames = allGames;
     }
 
     void setNotSavedFinishedGames(List<Game> notSavedFinishedGamesFinishedGames){
-        this.notSavedFinishedGames.addAll(notSavedFinishedGamesFinishedGames);
+        this.notSavedFinishedGames =notSavedFinishedGamesFinishedGames;
     }
 
-    void clearTemporaryCollection() {
+    void clearTemporaryCollections() {
         finishedGames.clear();
         allGames.clear();
     }

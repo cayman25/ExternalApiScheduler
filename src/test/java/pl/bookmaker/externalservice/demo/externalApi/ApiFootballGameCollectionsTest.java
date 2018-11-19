@@ -47,14 +47,33 @@ public class ApiFootballGameCollectionsTest {
   @Test
   public void shouldReturnSizeTwoInFinishedGames(){
     collections.setFinishedGames(listOfTwoFinishedGames);
-    collections.setFinishedGames(listOfTwoFinishedGames);
-    Assert.assertEquals(2,collections.getFinishedGames().size());
     Assert.assertEquals(2, collections.getNotSavedFinishedGames().size());
+    Assert.assertEquals(2,collections.getFinishedGames().size());
+    collections.setFinishedGames(listOfTwoFinishedGames);
+    Assert.assertEquals(2, collections.getNotSavedFinishedGames().size());
+    Assert.assertEquals(2,collections.getFinishedGames().size());
   }
 
   @Test
   public void shouldReturnSizeEqualsZero(){
     collections.setFinishedGames(emptyList);
     Assert.assertEquals(0,collections.getFinishedGames().size());
+  }
+
+  @Test
+  public void shouldReturnMessageAndSizeEqualsTwo(){
+    collections.setFinishedGames(listOfTwoFinishedGames);
+    Assert.assertEquals(2,listOfTwoFinishedGames.size());
+    collections.setFinishedGames(emptyList);
+    Assert.assertEquals(2,listOfTwoFinishedGames.size());
+  }
+
+  @Test
+  public void shouldFinishedGamesAndAllGamesSizeEqualsZeroAfterClear(){
+    collections.setFinishedGames(listOfTwoFinishedGames);
+    collections.setAllGames(listOfThreeFinishedGames);
+    collections.clearTemporaryCollections();
+    Assert.assertEquals(0,collections.getFinishedGames().size());
+    Assert.assertEquals(0,collections.getAllGames().size());
   }
 }
