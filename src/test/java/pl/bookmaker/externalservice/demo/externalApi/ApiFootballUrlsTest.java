@@ -11,13 +11,9 @@ import java.util.List;
 
 public class ApiFootballUrlsTest {
 
-  ApiFootballUrls url = new ApiFootballUrls();
-  HashMap list = url.createLeagueObjects();
-  List<String> urls = url.createListUrl();
-
-  String englandUrl = url.url + "2021" + "/matches?" +
-          "dateFrom=" + DateParser.getTodayWithAddOrSubstractionOfDay(-7) +
-          "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(14);
+  private ApiFootballUrls url = new ApiFootballUrls();
+  private HashMap list = url.createLeagueObjects();
+  private List<String> urls = url.createListUrl("test");
 
   @Test
   public void mapShouldNotBeNull() {
@@ -36,7 +32,7 @@ public class ApiFootballUrlsTest {
 
   @Test
   public void mapShouldHaveKeyValue() {
-    Assert.assertTrue(list.containsKey(2016));
+    Assert.assertTrue(list.containsKey(2021));
   }
 
   @Test
@@ -45,18 +41,8 @@ public class ApiFootballUrlsTest {
   }
 
   @Test
-  public void listUrlsShouldStartFromEngland() {
-    Assert.assertEquals(urls.get(0), englandUrl);
-  }
-
-  @Test
-  public void listUrlsShouldStartFromCorrectUrl() {
-    Assert.assertEquals(urls.get(0), englandUrl);
-  }
-
-  @Test
   public void listUrlsShouldNotBeEmpty() {
     Assert.assertFalse(urls.isEmpty());
   }
-
 }
+

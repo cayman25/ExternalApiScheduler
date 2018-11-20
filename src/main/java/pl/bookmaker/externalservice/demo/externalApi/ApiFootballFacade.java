@@ -1,29 +1,61 @@
 package pl.bookmaker.externalservice.demo.externalApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
+import pl.bookmaker.externalservice.demo.repository.GameRepository;
 
 import java.util.List;
 
 @Component
-class ApiFootballFacade {
-
-    private final ApiFootballGameCollection apiFootballGameCollection;
-    private final ApiFootballJsonConsumer apiFootballJsonConsumer;
-    private final ApiFootballUrls apiFootballUrls;
-    private final ApiFootballFilterGame apiFootballFilterGame = new ApiFootballFilterGame();
+public class ApiFootballFacade implements Observer {
 
     @Autowired
-    ApiFootballFacade(ApiFootballGameCollection apiFootballGameCollection, ApiFootballJsonConsumer apiFootballJsonConsumer, ApiFootballUrls apiFootballUrls) {
-        this.apiFootballGameCollection=apiFootballGameCollection;
-        this.apiFootballJsonConsumer = apiFootballJsonConsumer;
-        this.apiFootballUrls = apiFootballUrls;
+    private GameRepository gameRepository;
+
+    final ApiFootballUrls urls;
+    final ApiFootballJsonConsumer consumer;
+    final ApiFootballFilterGame filter;
+    final ApiFootballGamesCollections collection;
+
+    @Value("${api.apiAuthToken}")
+    private String apiToken;
+    @Value("${api.url}")
+    private String url;
+
+    ApiFootballFacade(ApiFootballUrls urls, ApiFootballJsonConsumer consumer, ApiFootballFilterGame filter, ApiFootballGamesCollections collection) {
+        this.urls = urls;
+        this.consumer = consumer;
+        this.filter = filter;
+        this.collection = collection;
+        collection.register(this);
     }
 
-    void updateGameCollection(){
-        List<Game> games = apiFootballJsonConsumer.getGames(apiFootballUrls.createListUrl());
-        apiFootballGameCollection.setFinishedGames(apiFootballFilterGame.getFinishedGames(games));
-        apiFootballGameCollection.setAllGames(apiFootballFilterGame.getAllNotFinishedGames(games));
+    public void clearTemporaryCollection() {
+        collection.clearTemporaryCollections();
+    }
+
+    public void updateGameCollection() {
+        List<Game> games = consumer.getGames(urls.createListUrl(url),apiToken);
+        collection.setFinishedGames(filter.getFinishedGames(games));
+        collection.setAllGames(filter.getAllNotFinishedGames(games));
+    }
+
+    public void saveAllGameEntity() {
+        System.out.println("Saved All: " + collection.getAllGames().size() + " games");
+        gameRepository.saveAll(collection.getAllGames());
+    }
+
+    private void saveNotFinishedGames() {
+        System.out.println("Saved Finished: " + collection.getFinishedGames().size() + " games");
+        gameRepository.saveAll(collection.getNotSavedFinishedGames());
+    }
+
+    @Override
+    public void update() {
+        System.out.println("New finished game, save action needed");
+        saveNotFinishedGames();
     }
 }

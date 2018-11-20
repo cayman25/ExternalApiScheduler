@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 
 @Repository
-public interface GameRepository extends JpaRepository<Game, Integer>{
+public interface GameRepository extends JpaRepository<Game,Integer> {
 	
 	/*@Query("Select new com.mybookmaker.pl.model.dto.GameDto"
 			+ "(g.matchID, g.competition.competitionID, g.homeTeam.teamName,g.awayTeam.teamName, g.dateMatch, g.startTime, g.statusMatch, g.winner) "

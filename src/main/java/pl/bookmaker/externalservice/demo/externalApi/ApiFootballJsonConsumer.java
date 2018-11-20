@@ -1,40 +1,35 @@
 package pl.bookmaker.externalservice.demo.externalApi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pl.bookmaker.externalservice.demo.converters.DateParser;
+import pl.bookmaker.externalservice.demo.externalApi.FactoryMethodGame.FactoryFromMatchesExternalApi;
+import pl.bookmaker.externalservice.demo.externalApi.FactoryMethodGame.FactoryMethodImplementation;
 import pl.bookmaker.externalservice.demo.models.entity.Competition;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.models.entity.Team;
 import pl.bookmaker.externalservice.demo.models.externalApi.MatchesExternalApi;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 class ApiFootballJsonConsumer {
 
-    @Value("${api.apiAuthToken}")
-    private String apiToken;
-
-    List<Game> getGames(List<String> urls){
-        HttpEntity<String> httpEntity = createHttpEntityWithHeader();
+    List<Game> getGames(List<String> urls, String apiToken) {
+        HttpEntity<String> httpEntity = createHttpEntityWithHeader(apiToken);
         RestTemplate restTemplate = createRestTemplateWithConverter();
-        return createListOfGameEntity(getMatches(urls,httpEntity,restTemplate));
+        return createListOfGameEntity(getMatches(urls, httpEntity, restTemplate));
     }
 
-    HttpEntity<String> createHttpEntityWithHeader(){
+    HttpEntity<String> createHttpEntityWithHeader(String apiToken) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Auth-Token",apiToken);
-        return new HttpEntity<>("parameters",headers);
+        headers.set("X-Auth-Token", apiToken);
+        return new HttpEntity<>("parameters", headers);
     }
 
     RestTemplate createRestTemplateWithConverter() {
@@ -45,7 +40,7 @@ class ApiFootballJsonConsumer {
         return restTemplate;
     }
 
-    List<MatchesExternalApi> getMatches(List<String> urls, HttpEntity<String> entity, RestTemplate restTemplate){
+    List<MatchesExternalApi> getMatches(List<String> urls, HttpEntity<String> entity, RestTemplate restTemplate) {
         return urls.stream()
                 .map(url -> {
                     ResponseEntity<MatchesExternalApi> matchesExternalApiResponseEntity = restTemplate.exchange(
@@ -64,7 +59,7 @@ class ApiFootballJsonConsumer {
                         (new Game(
                                 p.getId(),
                                 new Competition(externalMatches.getCompetition().getId(),
-                                                externalMatches.getCompetition().getName()),
+                                        externalMatches.getCompetition().getName()),
                                 DateParser.getDateFromJson(p.getUtcDate()),
                                 DateParser.getTimeFromJson(p.getUtcDate()),
                                 p.getStatus(),

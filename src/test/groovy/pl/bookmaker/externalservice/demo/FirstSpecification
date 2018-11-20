@@ -1,0 +1,11 @@
+/*
+package pl.bookmaker.externalservice.demo;
+import spock.lang.Specification
+
+class FirstSpecification extends Specification {
+
+    def "one plus one equals two"() {
+        expect:
+        2+2=4
+    }
+}*/
