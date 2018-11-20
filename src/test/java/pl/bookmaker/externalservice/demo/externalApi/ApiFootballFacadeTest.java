@@ -18,7 +18,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class ApiFootballFacadeTest {
 
     private InMemoryGameRepository inMemoryGameRepository = new InMemoryGameRepository();
@@ -39,15 +39,11 @@ public class ApiFootballFacadeTest {
 
     @Test
     public void test() {
-        //ArgumentCaptor valueCapture = ArgumentCaptor.forClass(String.class);
         when(consumer.getGames(any(),anyString())).thenReturn(games);
-        //doNothing().when(collections).setFinishedGames(anyList());
-        //verify(collections,times(0));
-        //doNothing().when(consumer).getGames(anyList(),valueCapture.capture());
-        //facade.updateGameCollection();
-        //System.out.println(valueCapture.getValue());
-        //doNothing().when(consumer).getGames(anyList(),anyString()).;
+        List<Game> list = consumer.getGames(null,"123");
+        Assert.assertEquals(2,list.size());
 
-        Assert.assertEquals(games,consumer.getGames(null,"123"));
+       // Mockito.spy(consumer).getGames().ret
+      //  Assert.assertThat(collections,list);
     }
 }

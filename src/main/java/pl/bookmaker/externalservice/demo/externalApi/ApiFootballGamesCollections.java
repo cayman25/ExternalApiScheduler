@@ -13,8 +13,8 @@ import java.util.List;
 @Getter
 class ApiFootballGamesCollections implements Observable {
 
-    private List<Observer> observerList = new ArrayList<>();
-    private List<Game> finishedGames = new ArrayList<>();
+    private final List<Observer> observerList = new ArrayList<>();
+    private final List<Game> finishedGames = new ArrayList<>();
     private List<Game> allGames = new ArrayList<>();
     private List<Game> notSavedFinishedGames = new ArrayList<>();
 
