@@ -1,13 +1,11 @@
 package pl.bookmaker.externalservice.demo.externalApi;
 
 import lombok.Getter;
-import lombok.Setter;
 import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observable;
 import pl.bookmaker.externalservice.demo.externalApi.interfaces.Observer;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Getter

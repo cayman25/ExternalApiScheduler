@@ -2,10 +2,12 @@ package pl.bookmaker.externalservice.demo.models.entity;
 
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.*;
 
 @Entity
 @Table

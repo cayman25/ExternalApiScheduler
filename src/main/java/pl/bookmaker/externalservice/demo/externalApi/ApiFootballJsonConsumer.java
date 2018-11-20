@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import pl.bookmaker.externalservice.demo.converters.DateParser;
-import pl.bookmaker.externalservice.demo.externalApi.FactoryMethodGame.FactoryFromMatchesExternalApi;
-import pl.bookmaker.externalservice.demo.externalApi.FactoryMethodGame.FactoryMethodImplementation;
 import pl.bookmaker.externalservice.demo.models.entity.Competition;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
 import pl.bookmaker.externalservice.demo.models.entity.Team;
@@ -26,13 +24,13 @@ class ApiFootballJsonConsumer {
         return createListOfGameEntity(getMatches(urls, httpEntity, restTemplate));
     }
 
-    HttpEntity<String> createHttpEntityWithHeader(String apiToken) {
+    private HttpEntity<String> createHttpEntityWithHeader(String apiToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Auth-Token", apiToken);
         return new HttpEntity<>("parameters", headers);
     }
 
-    RestTemplate createRestTemplateWithConverter() {
+    private RestTemplate createRestTemplateWithConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setObjectMapper(new ObjectMapper());
         RestTemplate restTemplate = new RestTemplate();
@@ -53,7 +51,7 @@ class ApiFootballJsonConsumer {
                 .collect(Collectors.toList());
     }
 
-    List<Game> createListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) {
+    private List<Game> createListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) {
         return matchesExternalApi.stream().flatMap(externalMatches ->
                 externalMatches.getMatches().stream().map(p ->
                         (new Game(

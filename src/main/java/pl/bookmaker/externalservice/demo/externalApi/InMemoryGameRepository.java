@@ -1,12 +1,9 @@
 package pl.bookmaker.externalservice.demo.externalApi;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import pl.bookmaker.externalservice.demo.models.entity.Game;
-import pl.bookmaker.externalservice.demo.repository.GameRepository;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 class InMemoryGameRepository  {
 
