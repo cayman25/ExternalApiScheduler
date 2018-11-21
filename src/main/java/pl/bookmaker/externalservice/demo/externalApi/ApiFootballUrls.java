@@ -14,8 +14,8 @@ class ApiFootballUrls {
 
         return leagues.entrySet().stream().map(p ->
                 url + p.getKey() + "/matches?" +
-                        "dateFrom=" + DateParser.getTodayWithAddOrSubstractionOfDay(-10) +
-                        "&dateTo=" + DateParser.getTodayWithAddOrSubstractionOfDay(14))
+                        "dateFrom=" + DateParser.getTodayWithAddOrSubstractDay(-1) +
+                        "&dateTo=" + DateParser.getTodayWithAddOrSubstractDay(14))
                 .collect(Collectors.toList());
     }
 

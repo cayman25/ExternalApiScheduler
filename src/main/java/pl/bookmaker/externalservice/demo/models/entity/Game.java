@@ -1,9 +1,6 @@
 package pl.bookmaker.externalservice.demo.models.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -14,6 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "matchID")
 public class Game {
 
 	@Id
@@ -45,12 +43,5 @@ public class Game {
 		this.winner = winner;
 	}
 
-	@Override
-	public boolean equals(Object object){
-		if (!(object instanceof Game || object == null))
-			return false;
-		Game c = (Game) object;
-		return c.getMatchID()==getMatchID();
-	}
 }
 

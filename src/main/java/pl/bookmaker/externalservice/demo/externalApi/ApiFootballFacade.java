@@ -15,10 +15,10 @@ public class ApiFootballFacade implements Observer {
     @Autowired
     private GameRepository gameRepository;
 
-    final ApiFootballUrls urls;
-    final ApiFootballJsonConsumer consumer;
-    final ApiFootballFilterGame filter;
-    final ApiFootballGamesCollections collection;
+    private final ApiFootballUrls urls;
+    private final ApiFootballJsonConsumer consumer;
+    private final ApiFootballFilterGame filter;
+    private final ApiFootballGamesCollections collection;
 
     @Value("${api.apiAuthToken}")
     private String apiToken;
