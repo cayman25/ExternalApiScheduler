@@ -1,7 +1,7 @@
 #ExternalApiScheduler
 
-It is an aplication resposible for get information from external service and save it to local database. 
-Finished games are saved only when program get information about update.
+This aplication is resposible for geting information from external service and save it to local database. 
+All finish games are save only when program get information about update.
 All games available from external service is saved one per day.  
 
 Program uses mainly SpringBoot, SpringDataJPA, two design patterns(Observer and Facade). This is my first try to write app in Hexagonal Architecture based on _WJUG #211 - Modularity and hexagonal architecture in real life: Jakub Nabrdalik._ 
