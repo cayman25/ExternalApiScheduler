@@ -24,13 +24,13 @@ class ApiFootballJsonConsumer {
         return createListOfGameEntity(getMatches(urls, httpEntity, restTemplate));
     }
 
-    private HttpEntity<String> createHttpEntityWithHeader(String apiToken) {
+    HttpEntity<String> createHttpEntityWithHeader(String apiToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Auth-Token", apiToken);
         return new HttpEntity<>("parameters", headers);
     }
 
-    private RestTemplate createRestTemplateWithConverter() {
+    RestTemplate createRestTemplateWithConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setObjectMapper(new ObjectMapper());
         RestTemplate restTemplate = new RestTemplate();
@@ -51,7 +51,7 @@ class ApiFootballJsonConsumer {
                 .collect(Collectors.toList());
     }
 
-    private List<Game> createListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) {
+    List<Game> createListOfGameEntity(List<MatchesExternalApi> matchesExternalApi) {
         return matchesExternalApi.stream().flatMap(externalMatches ->
                 externalMatches.getMatches().stream().map(p ->
                         (new Game(
