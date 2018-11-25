@@ -14,3 +14,5 @@ The main entities:
 * **Competition** -> contains ID and name of league
 
 In future this application will be responsible for update result of users bets therefor **Game** contains verified_status.
+
+All sout will be change to slf4j or log4j.
