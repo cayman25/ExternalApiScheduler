@@ -1,22 +1,21 @@
 package pl.bookmaker.externalscheduler.demo.externalApi;
 
+import pl.bookmaker.externalscheduler.demo.externalApi.Games.FinishedGames;
+import pl.bookmaker.externalscheduler.demo.externalApi.Games.NotFinishedGames;
+import pl.bookmaker.externalscheduler.demo.externalApi.interfaces.GamesStrategy;
 import pl.bookmaker.externalscheduler.demo.models.entity.Game;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 class ApiFootballFilterGame {
 
     List<Game> getFinishedGames(List<Game> listOfGameEntity) {
-        return listOfGameEntity.stream()
-                .filter(game -> game.getStatusMatch().equals("FINISHED") &&
-                        !game.getWinner().isEmpty())
-                .collect(Collectors.toList());
+        GamesStrategy list = new FinishedGames();
+        return list.getList(listOfGameEntity);
     }
 
     List<Game> getAllNotFinishedGames(List<Game> listOfGameEntity) {
-        return listOfGameEntity.stream()
-                .filter(game -> !game.getStatusMatch().equals("FINISHED"))
-                .collect(Collectors.toList());
+        GamesStrategy list = new NotFinishedGames();
+        return list.getList(listOfGameEntity);
     }
 }

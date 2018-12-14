@@ -1,9 +1,9 @@
 package pl.bookmaker.externalscheduler.demo.externalApi;
 
 import lombok.Getter;
-import pl.bookmaker.externalscheduler.demo.models.entity.Game;
 import pl.bookmaker.externalscheduler.demo.externalApi.interfaces.Observable;
 import pl.bookmaker.externalscheduler.demo.externalApi.interfaces.Observer;
+import pl.bookmaker.externalscheduler.demo.models.entity.Game;
 
 import java.util.ArrayList;
 import java.util.List;

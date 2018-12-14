@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import pl.bookmaker.externalscheduler.demo.externalApi.ex.ApiFootballException;
+import pl.bookmaker.externalscheduler.demo.externalApi.interfaces.Observer;
 import pl.bookmaker.externalscheduler.demo.models.entity.Game;
 import pl.bookmaker.externalscheduler.demo.repository.GameRepository;
-import pl.bookmaker.externalscheduler.demo.externalApi.interfaces.Observer;
 
 import java.util.List;
 
