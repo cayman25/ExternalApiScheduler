@@ -15,7 +15,7 @@ class ApiFootballScheduler {
         this.facade = facade;
     }
 
-    @Scheduled(cron = "*/30 * * * * *")
+    @Scheduled(cron = "0 */1 * * * *")
     void updateCollectionGame() {
         facade.updateGameCollection();
         System.out.println("Updated Collection");

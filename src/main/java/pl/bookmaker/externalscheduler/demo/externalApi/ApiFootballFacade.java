@@ -57,7 +57,7 @@ public class ApiFootballFacade implements Observer {
             throw new ApiFootballException("list of FinishedGames is empty");
         else
         gameRepository.saveAll(collection.getNotSavedFinishedGames());
-        System.out.println("Saved Finished: " + collection.getFinishedGames().size() + " games");
+        System.out.println("Save not saved games: " + collection.getNotSavedFinishedGames().size() + " games");
     }
 
     @Override

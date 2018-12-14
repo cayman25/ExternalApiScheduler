@@ -18,14 +18,14 @@ public class Game {
 	private int matchID;
 
 	@JoinColumn(name = "Competition")
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Competition competition;
 	private String dateMatch;
 	private String startTime;
 	private String statusMatch;
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	private Team homeTeam;
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	private Team awayTeam;
 	private String winner;
 	@Column(nullable = false, columnDefinition = "TINYINT(1)")
